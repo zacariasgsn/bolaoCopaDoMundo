@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="WEB-INF/templates/pageCadastro.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="content">
+
+		<div class="titulo-pagina">
+			<h2>Recuperar senha</h2>
+		</div>
+
+		<h:form id="formulario" styleClass="formularios">
+			<fieldset>
+				<p:messages autoUpdate="true" errorClass="errorMessage" />
+
+				<div>
+					<h:outputText>Para continuar com a recuperação de senha você precisa preesncher os dados abaixo.</h:outputText>
+				</div>
+
+				<div>
+					<div class="input-box box-18" style="float: none">
+						<label>Login de cadastro*</label>
+						<div class="conteiner">
+							<p:inputText id="login"
+								value="#{participanteFormBean.recuperarSenhaLogin}"
+								required="true" requiredMessage="O login é obrigatório."
+								maxlength="30">
+							</p:inputText>
+						</div>
+					</div>
+
+					<div class="input-box box-30" style="float: none !important">
+						<label>E-mail de cadastro*</label>
+						<div class="conteiner">
+							<p:inputText id="email"
+								value="#{participanteFormBean.recuperarSehnaEmail}"
+								maxlength="50" required="true"
+								requiredMessage="O email é obrigatório." />
+						</div>
+					</div>
+
+				</div>
+
+
+			</fieldset>
+
+			<p:button id="voltar" value="Voltar" outcome="login"
+				styleClass="fr mg-left-15 mg-bottom-15" />
+
+			<p:commandButton action="#{participanteFormBean.recuperarSenha}"
+				value="Confirmar" update="formulario"
+				styleClass="fr mg-left-15 mg-bottom-15" ajax="false" />
+
+			<p:commandButton id="limpaTela" immediate="true" value="Limpar"
+				action="#{participanteFormBean.limpaTelaCadastro}"
+				update="formulario" styleClass="fr mg-left-15 mg-bottom-15"
+				ajax="false" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<f:view>
+	<h:form>
+
+		<h2 class="dn">Menu Principal</h2>
+
+		<p:menubar>
+			<p:menuitem value="Início" url="/paginas/inicio.faces" />
+			<sec:ifAnyGranted roles="ROLE_PARTICIPANTE">
+			<p:menuitem value="Minhas Apostas" url="/paginas/apostas.faces" />
+			</sec:ifAnyGranted>
+			<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_CONSULTAS">
+			<p:submenu label="Palpites">
+				<p:menuitem value="por Participante"
+					url="/paginas/apostaParticipante.faces" />
+				<p:menuitem value="por Jogo" url="/paginas/apostaJogo.faces" />
+				<p:menuitem value="por Grupo" url="/paginas/apostaGrupo.faces" />
+			</p:submenu>
+			<p:menuitem value="Classificação"
+				url="/paginas/classificacaoGeral.faces" />
+			<p:menuitem value="Simulador" url="/paginas/simulador.faces" />
+			</sec:ifAnyGranted>
+			<p:menuitem value="Regras" url="/paginas/regras.faces" />
+			<p:menuitem value="Ajuda" url="/paginas/ajuda.faces" />
+		</p:menubar>			
+
+	</h:form>
+</f:view>
+</html>

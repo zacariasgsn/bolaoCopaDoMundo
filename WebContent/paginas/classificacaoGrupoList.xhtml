@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../WEB-INF/templates/page.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<div class="titulo-pagina">
+
+			<h2>Consulta de Classificação Grupo</h2>
+
+		</div>
+		<h:form id="form" styleClass="formularios box-border">
+
+			<p:messages infoClass="infoMessage" errorClass="errorMessage"
+				showDetail="false" autoUpdate="true" rendered="true" />
+
+			<div class="select-box box-12">
+				<label for="">Grupos</label>
+				<p:selectOneMenu id="grupo"
+					value="#{classificacaoGrupoListBean.grupoSelecionado}"
+					converter="entityConverter">
+					<f:selectItem itemLabel="Selecione..."></f:selectItem>
+					<f:selectItems var="grupo"
+						value="#{classificacaoGrupoListBean.opcaoGrupo}"
+						itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
+				</p:selectOneMenu>
+			</div>
+
+			<p:commandButton id="consultar" value="Consultar"
+				action="#{classificacaoGrupoListBean.consultar}"
+				styleClass="fl mg-top-18" update="lista" />
+
+			<div>
+
+				<p:growl id="messages" showDetail="true" />
+
+				<p:dataTable id="lista"
+					value="#{classificacaoGrupoListBean.classificacoes}" var="item"
+					emptyMessage="Não há registros" styleClass="tabela-dados"
+					editable="true" editMode="cell" cellSeparator=" \/ ">
+
+					<!-- <f:facet name="header">Jogos</f:facet> -->
+
+					<p:ajax event="cellEdit"
+						listener="#{classificacaoGrupoListBean.onCellEdit}"
+						update=":form:messages" />
+
+					<p:column id="col1" styleClass="text-center">
+						<f:facet name="header">
+                            ID
+                        </f:facet>
+						<h:outputText value="#{item.id}"/>
+					</p:column>
+
+					<p:column id="col2">
+						<f:facet name="header">
+                            Grupo
+                        </f:facet>
+						<h:outputText value="#{item.grupo.nome}"/>
+					</p:column>
+
+					<p:column id="col4">
+						<f:facet name="header">
+                            Posição 1
+                        </f:facet>
+						<h:graphicImage value="../img/#{item.posicao1.id}.png" />
+						<h:outputText value="#{item.posicao1.nome}" />
+					</p:column>
+
+					<p:column id="col6">
+						<f:facet name="header">
+                            Posição 2
+                        </f:facet>
+						<h:graphicImage value="../img/#{item.posicao2.id}.png" />
+						<h:outputText value="#{item.posicao2.nome}" />
+					</p:column>
+<!-- 
+					<p:column id="col7" width="10%">
+						<f:facet name="header">
+                            EDITAR
+                        </f:facet>
+						<h:link id="editar" value="Editar"
+							outcome="/paginas/classificacaoGrupoForm" styleClass="ico-editar">
+							<f:param name="idClassificacaoGrupo" value="#{item.id}" />
+						</h:link>
+					</p:column>
+ -->
+					<p:column id="col8">
+						<f:facet name="header">
+                            EXCLUIR
+                        </f:facet>
+						<p:commandLink id="excluir" value="Excluir"
+							styleClass="ico-delete"
+							action="#{classificacaoGrupoListBean.excluir}"
+							onclick="var x = confirm('Deseja realmente excluir o registro?');if(!x){return false;}"
+							update=":form:lista">
+							<f:setPropertyActionListener
+								target="#{classificacaoGrupoListBean.classificacaoGrupo}"
+								value="#{item}" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+			</div>
+
+			<p:commandButton id="limpaTela" value="Limpar"
+				style="margin-top:5px;"
+				action="#{classificacaoGrupoListBean.limpaTela}"
+				styleClass="fr mg-left-15" update="form" />
+
+			<p:commandButton id="incluir" value="Incluir/Alterar" style="margin-top:5px;"
+				action="#{classificacaoGrupoFormBean.prepareIncluir}"
+				styleClass="fr mg-left-15"
+				title="Ir para formulario de criação de Jogos" />
+			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
+				style="margin-top:5px;" action="#{classificacaoGrupoListBean.geraPontuacao}"
+				styleClass="fr mg-left-15" update="form" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>

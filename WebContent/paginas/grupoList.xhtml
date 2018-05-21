@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="../WEB-INF/templates/page.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<div class="titulo-pagina">
+			<h2>Consulta de Grupo</h2>
+
+		</div>
+
+		<h:form id="form" styleClass="formularios box-border">
+
+			<p:messages autoUpdate="true" errorClass="errorMessage" />
+
+			<div class="input-box box-50" title="Busca por nome do grupo">
+				<label for="grupo">Grupo</label>
+				<div class="conteiner">
+					<p:inputText id="grupo" value="#{grupoListBean.nome}"
+						title="Busca por nome do grupo" />
+				</div>
+			</div>
+
+			<p:commandButton id="consultar" value="Consultar"
+				action="#{grupoListBean.consultar}" update="lista"
+				styleClass="fl mg-left-18 mg-top-18" />
+
+			<div>
+
+				<p:dataTable id="lista" value="#{grupoListBean.modelo}" var="item"
+					paginator="true" rows="10" paginatorPosition="bottom" lazy="true"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,15,20,25" emptyMessage="Não há registros"
+					styleClass="tabela-dados">
+
+					<f:facet name="header">Grupos</f:facet>
+
+					<p:column id="col1" headerText="ID">
+						<h:outputText id="item1" value="#{item.id}" />
+					</p:column>
+
+					<p:column id="col2" headerText="Nome">
+						<h:outputText id="item2" value="#{item.nome}" />
+					</p:column>
+
+					<p:column id="col3" headerText="EDITAR">
+						<h:link id="editar" value="Editar" styleClass="ico-editar"
+							outcome="/paginas/grupoForm">
+							<f:param name="idgrupo" value="#{item.id}" />
+						</h:link>
+					</p:column>
+
+					<p:column id="col4" headerText="EXCLUIR">
+						<p:commandLink id="excluir" value="Excluir"
+							action="#{grupoListBean.excluir}" styleClass="ico-delete"
+							onclick="var x = confirm('Deseja realmente excluir o registro?');if(!x){return false;}">
+							<f:setPropertyActionListener target="#{grupoListBean.grupo}"
+								value="#{item}" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+
+			</div>
+
+			<p:commandButton id="limpaTela" value="Limpar"
+				action="#{grupoListBean.limpaTela}" update="lista, grupo"
+				styleClass="fr mg-left-15" />
+
+			<p:commandButton id="incluir" value="Incluir"
+				action="#{grupoFormBean.prepareIncluir}"
+				styleClass="fr mg-rleft-15"
+				title="Ir para formulario de criação de grupo" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>

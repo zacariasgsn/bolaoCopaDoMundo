@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubParticipantes" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="FILTRO" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="BACK" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\Java\\eclipse\\workspace\\srh\\WebContent\\img\\bg-topo.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\Java\\eclipse\\workspace\\srh\\WebContent\\img\\logo-srh.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LOGO_TCE" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Program Files\\Java\\eclipse\\workspace\\srh\\WebContent\\img\\logo-tce-report.png"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idParticipante" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     participante.NOME as NMPARTICIPANTE,
+     grupo.NOME AS NMGRUPO,
+     s1.NOME AS SELECAO1,
+     s2.NOME AS SELECAO2
+
+FROM
+     apostaclassificacaogrupo INNER JOIN  participante ON apostaclassificacaogrupo.IDPARTICIPANTE = participante.IDPARTICIPANTE
+     INNER JOIN  grupo ON apostaclassificacaogrupo.IDGRUPO = grupo.IDGRUPO
+     INNER JOIN selecao s1 ON apostaclassificacaogrupo.POSICAO1 = s1.IDSELECAO
+     INNER JOIN selecao s2 ON apostaclassificacaogrupo.POSICAO2 = s2.IDSELECAO
+where apostaclassificacaogrupo.IDPARTICIPANTE =$P{idParticipante}
+ORDER BY
+     participante.NOME ASC]]>
+	</queryString>
+	<field name="NMGRUPO" class="java.lang.String"/>
+	<field name="SELECAO1" class="java.lang.String"/>
+	<field name="SELECAO2" class="java.lang.String"/>
+	<group name="participante" isStartNewPage="true">
+		<groupExpression><![CDATA[]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="0" width="425" height="18" backcolor="#009900"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="1" y="0" width="87" height="18" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GRUPO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="160" height="18" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1º Lugar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="0" width="165" height="18" forecolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2º Lugar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle-2" positionType="Float" stretchType="RelativeToBandHeight" x="2" y="2" width="425" height="16" forecolor="#EFEFEF" backcolor="#EFEFEF">
+					<printWhenExpression><![CDATA[new Boolean(($V{COLUMN_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="1" width="87" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NMGRUPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="1" width="160" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SELECAO1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="260" y="1" width="169" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{SELECAO2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

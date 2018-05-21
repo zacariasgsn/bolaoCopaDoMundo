@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="../WEB-INF/templates/page.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+
+		<div class="titulo-pagina">
+			<h2>Cadastro de Jogos</h2>
+		</div>
+
+		<f:metadata>
+			<f:viewParam name="idJogo" id="idJogo"
+				value="#{jogosFormBean.jogosId}" />
+			<f:event type="preRenderView" listener="#{jogosFormBean.init}" />
+		</f:metadata>
+
+		<h:form styleClass="formularios" id="formulario">
+
+			<fieldset>
+
+				<p:messages infoClass="infoMessage" errorClass="errorMessage"
+					rendered="true" />
+
+				<h:panelGroup rendered="#{jogosFormBean.alterar == true}">
+					<div class="input-box box-10 mg-bottom-10">
+						<h:outputText value="ID" />
+						<div class="conteiner">
+							<h:inputText disabled="true" value="#{jogosFormBean.jogo.id}" />
+						</div>
+					</div>
+				</h:panelGroup>
+
+				<div class="input-box box-10">
+					<label for="">Data do Jogo</label>
+					<div class="conteiner">
+						<p:inputText id="datajogo" name="datajogo" styleClass="maskData"
+							converter="dateConverter" value="#{jogosFormBean.datajogo}"
+							maxlength="10" />
+					</div>
+				</div>
+
+				<div class="select-box box-15 clr">
+					<label for="grupo_select">Grupo</label>
+					<p:selectOneMenu id="grupo_select"
+						value="#{jogosFormBean.grupoSelecionado}"
+						converter="entityConverter" required="true"
+						disabled="#{jogosFormBean.alterar}">
+						<f:selectItem id="selecioneGrupo" itemLabel="Selecione..." />
+						<f:selectItems value="#{jogosListBean.opcaoGrupo}" var="grupo"
+							itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+						<p:ajax listener="#{jogosFormBean.consultarGrupo}"
+							update="listaSelecao1,listaSelecao2 " event="change" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="select-box box-15 clr">
+					<label for="">Seleção 1</label>
+					<p:selectOneMenu id="listaSelecao1"
+						value="#{jogosFormBean.selecao1Selecionado}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="Selecione..."></f:selectItem>
+						<f:selectItems var="sel1" value="#{jogosFormBean.opcaoSelecao1}"
+							itemValue="#{sel1}" itemLabel="#{sel1.nome}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="select-box box-15 clr">
+					<label for="">Seleção 2</label>
+					<p:selectOneMenu id="listaSelecao2"
+						value="#{jogosFormBean.selecao2Selecionado}"
+						converter="entityConverter">
+						<f:selectItem itemLabel="Selecione..."></f:selectItem>
+						<f:selectItems var="sel2" value="#{jogosFormBean.opcaoSelecao1}"
+							itemValue="#{sel2}" itemLabel="#{sel2.nome}" />
+					</p:selectOneMenu>
+				</div>
+
+			</fieldset>
+
+			<p:commandButton id="voltar" immediate="true" value="Voltar"
+				styleClass="fr mg-left-15" action="#{jogosListBean.limpaTela}" />
+
+			<p:commandButton id="limpaTela" value="Limpar"
+				action="#{jogosFormBean.limpaTela}" update="formulario"
+				title="Limpar Formulário" styleClass="fr mg-left-15"
+				immediate="true" />
+
+			<p:commandButton action="#{jogosFormBean.salvar}" value="Salvar"
+				styleClass="fr mg-left-15" update="formulario" />
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

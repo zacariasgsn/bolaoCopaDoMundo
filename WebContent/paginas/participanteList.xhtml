@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="../WEB-INF/templates/page.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+		<div class="titulo-pagina">
+
+			<h2>Consulta de Participantes</h2>
+
+		</div>
+
+		<h:form id="form" styleClass="formularios box-border">
+
+			<p:messages autoUpdate="true" errorClass="errorMessage" />
+
+			<div class="input-box box-50">
+				<label>Participante</label>
+				<div class="conteiner">
+					<p:inputText id="nome" value="#{participanteListBean.nome}" />
+				</div>
+			</div>
+
+			<div class="select-box box-8 mg-left-15">
+				<label for="situacao">Situação</label>
+				<p:selectOneMenu id="situacao" value="#{participanteListBean.ativo}">
+					<f:selectItem itemLabel="Todos" itemValue="-1" />
+					<f:selectItem itemLabel="Ativo" itemValue="1" />
+					<f:selectItem itemLabel="Inativo" itemValue="0" />
+				</p:selectOneMenu>
+			</div>
+
+			<p:commandButton id="consultar" value="Consultar"
+				action="#{participanteListBean.consultar}" update="lista"
+				styleClass="fl mg-left-15 mg-top-18" />
+
+			<div>
+
+				<p:dataTable id="lista" lazy="true"
+					value="#{participanteListBean.model}" var="item"
+					paginatorPosition="bottom" paginator="true" rows="10"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,15,20" styleClass="tabela-dados"
+					emptyMessage="Não há registros">
+
+					<f:facet name="header">Participante</f:facet>
+
+					<p:column headerText="ID">
+						<h:outputText value="#{item.id}" />
+					</p:column>
+
+					<p:column headerText="NOME">
+						<h:outputText value="#{item.nome}" />
+					</p:column>
+
+					<p:column headerText="E-MAIL">
+						<h:outputText value="#{item.email}" />
+					</p:column>
+
+					<p:column headerText="CONTATO">
+						<h:outputText value="#{item.contato}" />
+					</p:column>
+
+					<p:column headerText="TELEFONE">
+						<h:outputText value="#{item.telefone}" />
+					</p:column>
+
+					<p:column headerText="ATIVO">
+						<h:outputText value="Ativo" rendered="#{item.ativo == true}"
+							style="font-weight:bold" />
+						<h:outputText value="Inativo" rendered="#{item.ativo == false}"
+							style="font-weight:bold" />
+					</p:column>
+
+					<p:column headerText="EDITAR">
+						<h:commandLink id="editar" value="Editar"
+							action="#{participanteFormBean.prepareAlterar}"
+							styleClass="ico-editar">
+							<f:setPropertyActionListener
+								target="#{participanteFormBean.participante}" value="#{item}" />
+						</h:commandLink>
+					</p:column>
+
+					<p:column headerText="SENHA" style="width:4%">
+						<p:commandButton id="resetSenha" icon="ui-icon-refresh"
+							action="#{participanteListBean.resetarSenha}"
+							onclick="var x= confirm('Deseja realmente resetar a senha?');if(!x){return false;}">
+							<f:setPropertyActionListener
+								target="#{participanteListBean.participante}" value="#{item}" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column style="width:4%">
+						<p:commandButton id="detalhe" update=":form2:dados"
+							onsuccess="dlg.show()" icon="ui-icon-search">
+							<f:setPropertyActionListener value="#{item}"
+								target="#{participanteListBean.participante}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</div>
+
+			<p:commandButton id="limpaTela" value="Limpar"
+				action="#{participanteListBean.limpaTela}" update="form"
+				styleClass="fr mg-left-15" />
+
+			<p:commandButton id="incluir" value="Incluir"
+				action="#{participanteFormBean.prepareIncluir}"
+				styleClass="fr mg-left-15" />
+
+		</h:form>
+
+		<h:form id="form2">
+			<div>
+				<p:dialog id="popup" header="Participante" widgetVar="dlg"
+					resizable="false" modal="true">
+
+					<h:panelGrid id="dados" columns="2">
+						<h:outputText value="ID:" />
+						<h:outputText value="#{participanteListBean.participante.id}"
+							style="font-weight:bold" />
+
+						<h:outputText value="NOME:" />
+						<h:outputText value="#{participanteListBean.participante.nome}"
+							style="font-weight:bold" />
+
+						<h:outputText value="LOGIN:" />
+						<h:outputText
+							value="#{participanteListBean.participante.username}"
+							style="font-weight:bold" />
+
+						<h:outputText value="ATIVO:" />
+						<h:outputText value="Ativo"
+							rendered="#{participanteListBean.participante.ativo == true}"
+							style="font-weight:bold" />
+
+						<h:outputText value="Inativo"
+							rendered="#{participanteListBean.participante.ativo == false}"
+							style="font-weight:bold" />
+
+						<h:outputText value="E-MAIL:" />
+						<h:outputText value="E-mail nÃ£o informado"
+							rendered="#{participanteListBean.participante.email == null}"
+							style="font-weight:bold" />
+
+						<h:outputText value="#{participanteListBean.participante.email}"
+							rendered="#{participanteListBean.participante.email != null}"
+							style="font-weight:bold" />
+
+					</h:panelGrid>
+				</p:dialog>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

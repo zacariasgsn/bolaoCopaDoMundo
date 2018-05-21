@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="../WEB-INF/templates/page.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+	<ui:define name="content">
+
+		<div class="titulo-pagina">
+			<h2>Classificação Geral</h2>
+		</div>
+
+		<h:form id="form" styleClass="formularios box-border">
+
+			<p:messages infoClass="infoMessage" errorClass="errorMessage"
+				showDetail="true" autoUpdate="false"
+				rendered="#{classificacaoGeralBean.classificacaoList != null}" />
+
+			<div>
+
+				<p:dataTable id="lista" lazy="true"
+					value="#{classificacaoGeralBean.model}" rowIndexVar="rowIndex"
+					var="item" paginatorPosition="bottom" paginator="true" rows="20"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="20,30,40"   rowStyleClass="#{rowIndex le 3 ? 'linha' : null}" 
+					emptyMessage="Não há registros" styleClass="tabela-dados">
+
+					<f:facet name="header">Classificação</f:facet>
+
+					<p:column styleClass="center" headerText="Classificação">
+						<h:outputText value="#{rowIndex+1}" />
+					</p:column>
+
+
+					<p:column headerText="NOME">
+						<h:outputText value="#{item.participante.nome}" />
+					</p:column>
+
+					<p:column styleClass="center" headerText="Total">
+						<h:outputText value="#{item.totalPontos}" />
+					</p:column>
+
+					<p:column styleClass="center" headerText="Pontos Jogos">
+						<h:outputText value="#{item.pontosJogo}" />
+					</p:column>
+
+					<p:column styleClass="center" headerText="Pontos Grupo">
+						<h:outputText value="0"
+							rendered="#{item.pontosClassificacao == null}" />
+						<h:outputText value="#{item.pontosClassificacao}"
+							rendered="#{item.pontosClassificacao != null}" />
+					</p:column>
+
+					<p:column styleClass="center" headerText="Escores Cheios">
+						<h:outputText value="#{item.escoreCheio}" />
+					</p:column>
+
+					<p:column styleClass="center" headerText="Jogos do Brasil">
+						<h:outputText value="#{item.pontosBrasil}" />
+					</p:column>
+					<p:column styleClass="center" headerText="Acertos 1º Lugar Grupo">
+						<h:outputText value="#{item.acertoPrimeiroLugar}" />
+					</p:column>
+
+				</p:dataTable>
+
+			</div>
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+			
+					 <p:commandButton id="relatorio"
+										 value="Relatorio"
+										 actionListener="#{classificacaoGeralBean.relatorio}" 
+										  styleClass="mg-left-15 mg-top-15 fr"
+										 ajax="false"
+										 />
+					 <p:commandButton id="enviarEmail"
+										 value="email"
+										 actionListener="#{classificacaoGeralBean.enviarEmailParticipantes}" 
+										  styleClass="mg-left-15 mg-top-15 fr"
+										 ajax="false"
+										 />
+			</sec:ifAnyGranted>
+			
+		</h:form>
+
+	</ui:define>
+</ui:composition>

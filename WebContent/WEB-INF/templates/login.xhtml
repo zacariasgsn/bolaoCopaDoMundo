@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags" >
+	
+	<h:head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>BCM - Bolão da Copa do Mundo</title>
+        <link rel="stylesheet" type="text/css" media="all" href="css/geral.css" />
+        <link rel="shortcut icon" href="/bolaoCopaDoMundo/favicon.ico" />
+
+		<style>
+		.infoMessage {
+		     color: blue;
+		     font-weight: bold;
+		     margin-left: 12px;
+		     margin-bottom: 20px;
+		}
+		.errorMessage {
+		     color: red;
+		     font-weight: bold;
+		     margin-left: 12px; 
+		     margin-bottom: 20px;
+		}
+		</style>   
+
+	</h:head>
+	
+	<h:body>
+
+    	<f:view>
+        <div class="geral">
+
+            <div class="login-conteiner">
+                
+                <div class="login-topox">
+                    
+                    <h1>
+                        <a href="#" title="">
+                            bolaoTCE
+                        </a>
+                    </h1>
+                 
+					
+                    <!-- <h2 class="logo-tce">
+                        Tribunal de Contas do Estado  do Ceará
+                    </h2> -->
+                
+                </div>
+
+                <div class="login-corpo">
+
+					<ui:insert name="content">
+						conteudo da pagina!!!
+					</ui:insert>
+					
+					<div class="rodape">
+					<div class="rodape-login">
+                    	<p>
+							© Copyright 2018 <a href="regras.faces"
+								style="margin-left: 19px;">Regras</a>
+						</p>
+                    </div>
+                    </div>
+                </div>
+                
+                    
+
+            </div>
+
+        </div>
+		</f:view>
+
+	</h:body>
+
+</html>
