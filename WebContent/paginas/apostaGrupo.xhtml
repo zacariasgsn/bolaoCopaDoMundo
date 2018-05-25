@@ -9,44 +9,44 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Apostas por Grupo</h1>
 
-		<div class="titulo-pagina">
-			<h2>Consulta Apostas por Grupo</h2>
-		</div>
-
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form">
 			<p:focus context="lista" />
 			<p:messages autoUpdate="true" errorClass="errorMessage" />
-
-			<div>
-				<div class="select-box" style="width:130px;">
-					<label for="grupo">Grupos</label>
-					<p:selectOneMenu id="grupo"
-						value="#{apostasGrupoBean.grupoSelecionado}"
-						converter="entityConverter" styleClass="mg-right-10">
-						<f:selectItem itemLabel="Selecione..."></f:selectItem>
-						<f:selectItems var="grupo" value="#{apostasGrupoBean.grupos}"
-							itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
-					</p:selectOneMenu>
-				</div>
-
-				<h:panelGrid columns="2">
-					<p:commandButton id="pesquisar" value="Pesquisar"
-						action="#{apostasGrupoBean.searchByBJogo}" update="lista"
-						styleClass="mg-top-10" />
-					<p:commandButton id="limpaTela" value="Limpar"
-						action="#{apostasGrupoBean.limpaTela}"
-						styleClass="mg-left-10  mg-top-10" update="form" />
-					</h:panelGrid>
+			
+				<div class="form-row">
+					<div class="input-group mb-3 col-12">
+						<div class="input-group-prepend">
+	     					<label class="input-group-text" for="grupo">Grupos</label>
+	  					</div>
+						<p:selectOneMenu id="grupo"
+							value="#{apostasGrupoBean.grupoSelecionado}"
+							converter="entityConverter" styleClass="custom-select">
+							<f:selectItem itemLabel="Selecione..."></f:selectItem>
+							<f:selectItems var="grupo" value="#{apostasGrupoBean.grupos}"
+								itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
+						</p:selectOneMenu>
+						<div class="input-group-append">
+							<p:commandButton id="pesquisar" value="Pesquisar"
+							action="#{apostasGrupoBean.searchByBJogo}" update="lista"
+							styleClass="btn btn-secondary btn-sm" />
+		
+							<p:commandButton id="limpaTela" value="Limpar"
+							action="#{apostasGrupoBean.limpaTela}"
+							styleClass="btn btn-sm" update="form" />
+									
+				  		</div>
+				  	</div>
 			</div>
 			<div>
-				<p:dataTable id="lista" lazy="true" styleClass="tabela-dados"
+				<p:dataTable id="lista" lazy="true" 
 					value="#{apostasGrupoBean.model}" rowIndexVar="rowIndex" var="item"
 					paginatorPosition="bottom" paginator="true" rows="20"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="20,30,40" emptyMessage="Não há registros">
+					rowsPerPageTemplate="20,30,40" emptyMessage="Não há registros"
+					styleClass="table table-sm table-hover table-striped">
 					
-					<f:facet name="header">Grupos</f:facet>
 
 					<p:column id="col1" headerText="Participante" styleClass="center">
 						<h:outputText value="#{item.participante.nome}" />

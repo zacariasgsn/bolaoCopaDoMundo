@@ -9,24 +9,24 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Apostas por Jogos</h1>
 
-		<div class="titulo-pagina">
-			<h2>Consulta Apostas por Jogos</h2>
-		</div>
-
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form">
 			<p:focus context="lista" />
 			<p:messages autoUpdate="true" errorClass="errorMessage" />
-
-			<div>
-				<div class="select-box" style="width:initial;" >
-					<label for="">Jogo</label>
-						<p:selectOneMenu value="#{apostasJogoBean.jogoSelecionado}"
+			
+			<div class="form-row">
+				<div class="input-group mb-3 col-12">
+					<div class="input-group-prepend">
+     					<label class="input-group-text" for="jogo">Jogo</label>
+  					</div>
+					<p:selectOneMenu value="#{apostasJogoBean.jogoSelecionado}"
 							converter="entityConverter" panelStyle="width:150px"
-							effect="fade" var="j" style="width:350px" filter="true"
+							effect="fade" var="j"  filter="true"
 							filterMatchMode="startsWith" 
 							required="true"
-							requiredMessage="Nenhum jogo foi selecionado" >
+							requiredMessage="Nenhum jogo foi selecionado" 
+							styleClass="custom-select">
 							<f:selectItem itemLabel="Selecione..." itemValue="" />
 							<f:selectItems value="#{apostasJogoBean.jogos}" var="jogo"
 								itemLabel="#{jogo.selecao1.nome}  vs  #{jogo.selecao2.nome}"
@@ -34,7 +34,7 @@
 
 							<p:column>
 									#{j.selecao1.nome}
-								</p:column>
+							</p:column>
 
 							<p:column>
 								<p:graphicImage value="../img/#{j.selecao1.id}.png" />
@@ -51,27 +51,29 @@
 								</p:column>
 
 						</p:selectOneMenu>
-				</div>
-				
-				<h:panelGrid columns="2">
-					<p:commandButton id="pesquisar" value="Pesquisar"
+						
+					<div class="input-group-append">
+						<p:commandButton id="pesquisar" value="Pesquisar"
 						action="#{apostasJogoBean.searchByBJogo}" update="lista"
-						styleClass=" mg-left-18  mg-top-18" />
+						styleClass="btn btn-secondary btn-sm" />
 	
-					<p:commandButton id="limpaTela" value="Limpar"
+						<p:commandButton id="limpaTela" value="Limpar"
 						action="#{apostasJogoBean.limpaTela}"
-						styleClass=" mg-left-18  mg-top-18" update="form" />
-				</h:panelGrid>
+						styleClass="btn btn-sm" update="form" />
+								
+			  				</div>
+			  		</div>
+		  		</div>
+
 				
-				<div>
-					<p:dataTable id="lista" lazy="true" styleClass="tabela-dados"
+
+					<p:dataTable id="lista" lazy="true" 
 						value="#{apostasJogoBean.model}" rowIndexVar="rowIndex" var="item"
 						paginatorPosition="bottom" paginator="true" rows="20"
 						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="20,30,40" emptyMessage="Não há registros">
+						rowsPerPageTemplate="20,30,40" emptyMessage="Não há registros"
+						styleClass="table table-sm table-striped table-hover">
 						
-						<f:facet name="header">Jogos</f:facet>
-
 						<p:column id="col1" headerText="Participante" styleClass="center">
 							<h:outputText value="#{item.participante.nome}" />
 						</p:column>
@@ -127,8 +129,6 @@
 						</p:column>
 
 					</p:dataTable>
-				</div>
-			</div>
 
 		</h:form>
 

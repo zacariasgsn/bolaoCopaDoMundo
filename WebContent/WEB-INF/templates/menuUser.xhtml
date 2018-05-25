@@ -7,31 +7,33 @@
 
 <f:view>
 	<h:form>
-
-		<h2 class="dn">Menu Principal</h2>
+	<div class="dropdown">
 		<sec:ifAnyGranted roles="ROLE_CONSULTAS">
-		<p:commandButton id="ola" value="Olá, #{LoginBean.usuarioLogado.username}! Sua classificação é: #{LoginBean.usuarioLogado.classificacao}" type="button" style="height: 38px;"/>
+			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fas fa-user"></i>
+				Olá, #{LoginBean.usuarioLogado.username}! Sua classificação é: #{LoginBean.usuarioLogado.classificacao}
+			</a>
 		</sec:ifAnyGranted>
 		<sec:ifNotGranted roles="ROLE_CONSULTAS">
-		<p:commandButton id="ola" value="Olá, #{LoginBean.usuarioLogado.username}!" type="button" style="height: 38px;"/>
+			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="fas fa-user"></i>
+	    		Olá, #{LoginBean.usuarioLogado.username}!
+	  		</a>
 		</sec:ifNotGranted>  
-    	<p:menu overlay="true" trigger="ola" my="right top" at="right bottom">
-    			<sec:ifAnyGranted roles="ROLE_ADMIN">
-				<p:submenu label="Tabelas">
-					<p:menuitem value="Grupo" url="/paginas/grupoList.faces" />
-					<p:menuitem value="Seleção" url="/paginas/selecaoList.faces" />
-				</p:submenu>
-				<p:submenu label="Cadastros">
-					<p:menuitem value="Participante"
-						url="/paginas/participanteList.faces" />
-					<p:menuitem value="Jogos" url="/paginas/jogosList.faces" />
-					<p:menuitem value="Classificação Grupo"
-						url="/paginas/classificacaoGrupoList.faces" />
-				</p:submenu>
-				<p:separator />
-				</sec:ifAnyGranted>
-				<p:menuitem value="Sair" url="/logout.jsp" style="text-decoration: underline; font-weight: bold;" />
-		</p:menu>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    		<sec:ifAnyGranted roles="ROLE_ADMIN">
+    			<h6 class="dropdown-header">Tabelas</h6>
+    			<a class="dropdown-item" href="/bolaoCopaDoMundo/paginas/grupoList.faces">Grupo</a>
+    			<a class="dropdown-item" href="/bolaoCopaDoMundo/paginas/selecaoList.faces">Seleção</a>
+				<div class="dropdown-divider"></div>
+				<h6 class="dropdown-header">Cadastros</h6>
+    			<a class="dropdown-item" href="/bolaoCopaDoMundo/paginas/participanteList.faces">Participante</a>
+    			<a class="dropdown-item" href="/bolaoCopaDoMundo/paginas/jogosList.faces">Jogos</a>
+    			<a class="dropdown-item" href="/bolaoCopaDoMundo/paginas/classificacaoGrupoList.faces">Classificação Grupo</a>
+				<div class="dropdown-divider"></div>
+			</sec:ifAnyGranted>
+			<a class="dropdown-item" href="/bolaoCopaDoMundo/logout.jsp">Sair</a>
+		</div>
 		
 
 		<!-- 	<ul> -->
@@ -74,7 +76,7 @@
 		<!-- 		</ui:fragment> -->
 
 		<!-- 	</ul> -->
-
+	</div>
 	</h:form>
 </f:view>
 </html>

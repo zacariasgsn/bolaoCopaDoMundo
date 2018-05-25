@@ -9,12 +9,9 @@
 	xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
 	<ui:define name="content">
+		<h1>Classificação Geral</h1>
 
-		<div class="titulo-pagina">
-			<h2>Classificação Geral</h2>
-		</div>
-
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form" styleClass="">
 
 			<p:messages infoClass="infoMessage" errorClass="errorMessage"
 				showDetail="true" autoUpdate="false"
@@ -27,28 +24,25 @@
 					var="item" paginatorPosition="bottom" paginator="true" rows="20"
 					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 					rowsPerPageTemplate="20,30,40"   rowStyleClass="#{rowIndex le 3 ? 'linha' : null}" 
-					emptyMessage="Não há registros" styleClass="tabela-dados">
+					emptyMessage="Não há registros" styleClass="table table-sm table-striped table-hover">
 
-					<f:facet name="header">Classificação</f:facet>
-
-					<p:column styleClass="center" headerText="Classificação">
+					<p:column styleClass="" headerText="Classificação">
 						<h:outputText value="#{rowIndex+1}" />
 					</p:column>
 
-
-					<p:column headerText="NOME">
+					<p:column headerText="Nome">
 						<h:outputText value="#{item.participante.nome}" />
 					</p:column>
 
-					<p:column styleClass="center" headerText="Total">
+					<p:column styleClass="" headerText="Total">
 						<h:outputText value="#{item.totalPontos}" />
 					</p:column>
 
-					<p:column styleClass="center" headerText="Pontos Jogos">
+					<p:column styleClass="" headerText="Pontos Jogos">
 						<h:outputText value="#{item.pontosJogo}" />
 					</p:column>
 
-					<p:column styleClass="center" headerText="Pontos Grupo">
+					<p:column styleClass="" headerText="Pontos Grupo">
 						<h:outputText value="0"
 							rendered="#{item.pontosClassificacao == null}" />
 						<h:outputText value="#{item.pontosClassificacao}"
@@ -59,10 +53,10 @@
 						<h:outputText value="#{item.escoreCheio}" />
 					</p:column>
 
-					<p:column styleClass="center" headerText="Jogos do Brasil">
+					<p:column styleClass="" headerText="Jogos do Brasil">
 						<h:outputText value="#{item.pontosBrasil}" />
 					</p:column>
-					<p:column styleClass="center" headerText="Acertos 1º Lugar Grupo">
+					<p:column styleClass="" headerText="Acertos 1º Lugar Grupo">
 						<h:outputText value="#{item.acertoPrimeiroLugar}" />
 					</p:column>
 

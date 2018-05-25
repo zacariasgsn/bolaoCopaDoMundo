@@ -1,18 +1,51 @@
-* {
-	padding: 0;
-	margin: 0;
-	font-family: arial;
-	font-size: 12px;
-	/* color: #505050; */
-}
+@import  url("bootstrap.min.css");
+@import  url("fontawesome-all.min.css");
+@import url('https://fonts.googleapis.com/css?family=Arima+Madurai:100,200,300,400,500,700,800,900');
 
-select,option,input,textarea {
-	outline: none;
-}
+html, body { font-family: 'Arima Madurai', cursive; font-weight:400;}
 
-input[type="text"], input[type="password"] {
-	background-color: #fff !important;
-}
+a { color:#E30613; }
+
+footer { text-align: center; padding: 10px 0; }
+
+.topo { background-color: #0F4583; color:#fff; font-family: 'Arima Madurai', cursive; font-weight:900; margin-bottom:20px; }
+.topo img{ max-height:120px; } 
+.topo .titulo { font-size:35px }
+.btn-copa { background-color:#E30613; color:#fff; }
+
+
+/* BOOTSTRAP */
+.navbar { padding-left:0; }
+.navbar-expand-lg .navbar-nav .nav-link { padding-left:0; margin-right:20px }
+.navbar-light .navbar-nav .nav-link { color:#fff; text-transform:uppercase }
+.navbar-light .navbar-nav .nav-link:hover { color:#E30613; }
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link { color:#E30613; }
+
+
+/* PRIMEFACES */
+.ui-datatable thead th { border-left: none; border-right:none; text-align:left }
+.ui-datatable tbody td, .ui-datatable tfoot td { padding:0; border: none; }
+.ui-selectonemenu-panel .ui-selectonemenu-list { background: #fff; }
+.ui-icon { text-indent:  inherit; }
+.ui-datepicker, .ui-growl { background:#fff; }
+.ui-button-icon-only .ui-button-text { padding: 0; display: none;}
+.ui-picklist-button-add::before{ font-family: Font Awesome\ 5 Free; content: "\f0fe"; color:#000;  }
+.ui-picklist-button-add-all::before{ font-family: Font Awesome\ 5 Free; content: "\f0fe"; color:#000; font-weight:900}
+.ui-picklist-button-remove-all::before{ font-family: Font Awesome\ 5 Free; content: "\f146"; color:#000; font-weight:900 }
+.ui-picklist-button-remove::before{ font-family: Font Awesome\ 5 Free; content: "\f146"; color:#000; }
+.ui-dialog { background: #fff; }
+.ui-selectonemenu-panel { background: #fff; }
+.ui-paginator-next::before{ font-family: Font Awesome\ 5 Free; content: "\f105"; color:#000; font-weight: 900;}
+.ui-paginator-prev::before{ font-family: Font Awesome\ 5 Free; content: "\f104"; color:#000; font-weight: 900;}
+.ui-paginator-first::before{ font-family: Font Awesome\ 5 Free; content: "\f100"; color:#000; font-weight: 900;}
+.ui-paginator-last::before{ font-family: Font Awesome\ 5 Free; content: "\f101"; color:#000; font-weight: 900;}
+.ui-radiobutton-icon::before{ font-family: Font Awesome\ 5 Free; content: "\f192"; color:#000; font-weight: 400;}
+.ui-radiobutton-box{ display:none; }
+.ui-icon { text-indent: -99999px; display:none; }
+.ui-state-hover, .ui-state-focus { background: #fff; }
+.ui-helper-hidden-accessible { position: relative !important; }
+
+
 
 /* INICIO CLASSES UTEIS */
 .fl {
@@ -127,7 +160,7 @@ html {
 	/* 	background: #195298 url(../img/bg.png) 0 0 repeat-x; */
 /* 	background: #195298 url(../img/copadomundo11.jpeg) 0px -200px no-repeat; */
 
-	background: #000000 url(../img/copadomundo11.jpeg) top center no-repeat;
+	/*background: #000000 url(../img/copadomundo11.jpeg) top center no-repeat;*/
 	background-size: 100% auto;
 	
 	background-attachment: fixed;
@@ -135,7 +168,7 @@ html {
 }
 
 body {
-	background: url(../img/textura.png) 0 0 repeat;
+	/*background: url(../img/textura.png) 0 0 repeat;*/
 	height: 100%;
 }
 
@@ -210,57 +243,22 @@ body {
 }
 
 .login-corpo {
-	margin-right: 60px;
-	margin-left: auto;
+
 	/* 	border: 1px solid #b5b5b5; */
 	/* 	border-radius: 10px; */
-	background-color: rgba(255, 255, 255, 0.8);
-	width: 340px;
+	background-color: rgba(255, 255, 255, 1.0);
+
 	/* 	margin: 0 auto; */
 	/* padding: 15px; */
-	min-height: 100px;
+
 	border-radius: 8px;
-	text-align: center;
 }
 
-.login-corpo form {
-	/* 	border: 1px solid #b5b5b5; */
-	border-radius: 10px;
-	padding: 20px;
-	/* 	overflow: auto; */
-	/* 	background: url(../img/bg-login.png) 0 bottom repeat-x; */
-}
-
-.login-corpo label {
-	font-size: 12px;
-	color: #505050;
-	margin-bottom: 3px;
-	display: block;
-	font-weight: normal;
-}
-
-.login-corpo .input-text {
-	/* 	border: 1px solid #c5c5c5; */
-	/* 	background: url(../img/input-bg.png) 0 0 repeat-x; */
-	font-size: 12px;
-	color: #343434;
-	width: 200px;
-	padding: 8px 6px;
-	width: 150px;
-	margin: 0 10px 0 0;
-}
-
-.login-corpo .box-inputs {
-	/* width: 338px; */
-	/* overflow: auto; */
-	min-height: 10px;
-	margin: 0 auto;
-}
 
 /* FIM LOGIN BOX */
 
 /* INICIO TOPO */
-.topo,.login-topo {
+.login-topo {
 	/* margin-bottom: 3px; */
 	border: 1px solid #b5b5b5;
 	border-radius: 10px;
@@ -268,17 +266,17 @@ body {
 	height: 95px;
 	position: relative;
 	overflow: hidden;
-	background: rgba(255, 255, 255, 0.8) url(../img/bg-topo.png) left 0
+	background: rgba(255, 255, 255, 1.0) url(../img/bg-topo.png) left 0
 		no-repeat;
 }
 
-.topo h1,.login-topo h1 {
+.login-topo h1 {
 	width: 368px;
 	height: 121px;
 	overflow: hidden;
 }
 
-.topo h1 a,.login-topo h1 a {
+.login-topo h1 a {
 	width: 368px;
 	height: 121px;
 	display: block;

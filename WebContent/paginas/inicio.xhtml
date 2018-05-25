@@ -10,20 +10,12 @@
 
 	<ui:define name="content">
 
-		<div class="titulo-pagina">
-			<h2>Bolão Copa do Mundo 2018 </h2>
-		</div>
-
-		<!-- <h:form id="form" styleClass="formularios box-border"> -->
-
 		<p:outputPanel rendered="#{inicioBean.apostasGolNull == 0}">
-		<div class="ui-messages ui-widget">
-			<div class="ui-messages-info ui-corner-all">
-				<span class="ui-messages-info-icon"></span>
-				<ul>
-					<li><span class="ui-messages-info-summary">Você já completou suas apostas de jogos!</span></li>
-				</ul>
-			</div>
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			Você já completou suas apostas de jogos!
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    			<span aria-hidden="true">x</span>
+  			</button>
 		</div>
 		</p:outputPanel>
 		
@@ -39,14 +31,12 @@
 		</p:outputPanel>
 		
 		<p:outputPanel rendered="#{inicioBean.apostasPendentes == 0}">
-		<div class="ui-messages ui-widget">
-			<div class="ui-messages-info ui-corner-all">
-				<span class="ui-messages-info-icon"></span>
-				<ul>
-					<li><span class="ui-messages-info-summary">Você já completou suas apostas de grupos!</span></li>
-				</ul>
-			</div>
-		</div>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			<b>Parabéns!</b> Você já completou suas apostas de grupos!
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    			<span aria-hidden="true">X</span>
+	  			</button>
+  		</div>
 		</p:outputPanel>
 		
 		<p:outputPanel rendered="#{inicioBean.apostasPendentes > 0}">
@@ -63,19 +53,17 @@
 		<p:messages infoClass="infoMessage" errorClass="errorMessage"
 			showDetail="true" autoUpdate="false"
 			rendered="#{inicioBean.jogos != null}" />
-
-		<p:layout fullPage="false" style="height: 550px">
-
-			<p:layoutUnit position="north" header="Noticias"
-				rendered="#{inicioBean.classificacaoList.size() != 0}">
-				
-
-				<div style="padding: 10px;">
+			
+			
+		<div class="row">
+			<div class="col-8" >
+				<p:outputPanel rendered="#{inicioBean.classificacaoList.size() != 0}">						
+					<h2>NOTÍCIAS</h2>
+					
 					<p>Seja bem-vindo ao Bolão da Copa do Mundo 2018, além da
 						premiação, o intuito desse bolão é acompanhar toda copa de uma
 						maneira mais emocionante. O Bolão é válido em toda primeira fase
 						da copa, com início em 14/06/2018 e encerramento em 28/06/2018.</p>
-					<br />
 					<p>Utilize o menu de navegação no alto, para consultar as
 						regras do Bolão, fazer suas apostas, consultar sua classificação,
 						simular resultados e tirar suas dúvidas. Um arquivo PDF com todas
@@ -83,30 +71,40 @@
 						apuração do resultado. Cada vez, que a classificação for
 						atualizada você receberá um e-mail informando a colocação dos
 						participantes.</p>
-					<br />
 					<p>Na opção "Minhas Apostas" no menu, você deve cadastrar seus palpite nos resultados dos jogos e quais seleções irão
 						passar para próxima fase. Verifique se nção esqueceu nenhum palpite, você deve finalizar suas apostas até o
 						dia 13/06/2018.</p>
-					<br />
 					<p>Então, espero que todos se divirtam e BOA SORTE!</p>
-					<br />
 					<p>Total Participantes cadastrados: #{inicioBean.totalParticipantes}</p>
-					 <p>Total ativos: #{inicioBean.totalParticipantesAtivos}</p>
-					 <p> Total arrecadado:  #{inicioBean.totalParticipantesAtivos*75}</p>
-				</div>
-
-			</p:layoutUnit>
-
-			<p:layoutUnit position="center" header="Noticias"
-				rendered="#{inicioBean.classificacaoList.size() == 0}"
-				style="padding: 10px;">
-
-				<div style="padding: 10px;">
+					<p>Total ativos: #{inicioBean.totalParticipantesAtivos}</p>
+					<p>Total arrecadado:  #{inicioBean.totalParticipantesAtivos*75}</p>
+					
+					<p:dataTable id="lista" lazy="true" value="#{inicioBean.model}"
+						rowIndexVar="rowIndex" var="item" paginatorPosition="bottom"
+						paginator="false" rows="10" styleClass="tabela-dados">
+	
+						<p:column styleClass="center" headerText="Class.">
+							<h:outputText value="#{rowIndex+1}" />
+						</p:column>
+	
+						<p:column headerText="NOME">
+							<h:outputText value="#{item.participante.nome}" />
+						</p:column>
+	
+						<p:column styleClass="center" headerText="Total">
+							<h:outputText value="#{item.totalPontos}" />
+						</p:column>
+	
+					</p:dataTable>
+				</p:outputPanel>
+			
+				<p:outputPanel rendered="#{inicioBean.classificacaoList.size() == 0}">
+					<h2>NOTÍCIAS</h2>		
 					<p>Seja bem-vindo ao Bolão da Copa do Mundo 2018, além da
 						premiação, o intuito desse bolão é acompanhar toda copa de uma
 						maneira mais emocionante. O Bolão é válido em toda primeira fase
 						da copa, com início em 14/06/2018 e encerramento em 28/06/2018.</p>
-					<br />
+
 					<p>Utilize o menu de navegação no alto, para consultar as
 						regras do Bolão, fazer suas apostas, consultar sua classificação,
 						simular resultados e tirar suas dúvidas. Um arquivo PDF com todas
@@ -114,46 +112,20 @@
 						apuração do resultado. Cada vez, que a classificação for
 						atualizada você receberá um e-mail informando a colocação dos
 						participantes.</p>
-					<br />
+
 					<p>Na opção "Minhas Apostas" no menu, você deve cadastrar seus palpite nos resultados dos jogos e quais seleções irão
 						passar para próxima fase. Verifique se não esqueceu nenhum palpite, você deve finalizar suas apostas até o
 						dia 13/06/2018.</p>
-					<br />
+
 					<p>Então, espero que todos se divirtam e BOA SORTE!</p>
-					<br />
-					<br />
-					<br />
-					<p><b><font color="blue">Total participantes cadastrados: #{inicioBean.totalParticipantes}</font></b></p>
-					 <p><b><font color="blue">Total participantes ativos: #{inicioBean.totalParticipantesAtivos}</font></b></p>
-					 <p><b><font color="blue">Total arrecadado: #{inicioBean.totalParticipantesAtivos*75}</font></b></p>
-				</div>
 
-			</p:layoutUnit>
-
-			<p:layoutUnit position="center" header="Top 10"
-				rendered="#{inicioBean.classificacaoList.size() != 0}">
-
-				<p:dataTable id="lista" lazy="true" value="#{inicioBean.model}"
-					rowIndexVar="rowIndex" var="item" paginatorPosition="bottom"
-					paginator="false" rows="10" styleClass="tabela-dados">
-
-					<p:column styleClass="center" headerText="Class.">
-						<h:outputText value="#{rowIndex+1}" />
-					</p:column>
-
-					<p:column headerText="NOME">
-						<h:outputText value="#{item.participante.nome}" />
-					</p:column>
-
-					<p:column styleClass="center" headerText="Total">
-						<h:outputText value="#{item.totalPontos}" />
-					</p:column>
-
-				</p:dataTable>
-
-			</p:layoutUnit>
-
-			<p:layoutUnit position="east" header="Próximos Jogos">
+					<p><b>Total participantes cadastrados: #{inicioBean.totalParticipantes}</b></p>
+					<p><b>Total participantes ativos: #{inicioBean.totalParticipantesAtivos}</b></p>
+					<p><b>Total arrecadado: #{inicioBean.totalParticipantesAtivos*75}</b></p>
+				
+				</p:outputPanel>
+			</div>
+			<div class="col-4">
 				<p:dataGrid var="item" value="#{inicioBean.jogos}" columns="1"
 					rows="4" paginator="false" paginatorPosition="bottom">
 
@@ -179,9 +151,9 @@
 
 					</p:panel>
 				</p:dataGrid>
-			</p:layoutUnit>
-
-		</p:layout>
+			</div>
+		
+		</div>	
 
 		<!-- </h:form> -->
 

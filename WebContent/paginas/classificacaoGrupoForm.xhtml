@@ -8,11 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-
-
-		<div class="titulo-pagina">
-			<h2>Cadastro Classificação Grupo</h2>
-		</div>
+		<h1>Novo/Alterar Classificação Grupo</h1>
 
 		<f:metadata>
 			<f:viewParam name="idClassificacaoGrupo" id="idClassificacaoGrupo"
@@ -21,10 +17,10 @@
 				listener="#{classificacaoGrupoFormBean.init}" />
 		</f:metadata>
 
-		<h:form styleClass="formularios" id="formulario">
+		<h:form id="formulario">
 
 			<p:growl id="msg" showDetail="false" escape="false" />
-			<fieldset>
+
 				<p:messages infoClass="infoMessage" errorClass="errorMessage"
 					rendered="true" />
 				<h:panelGroup
@@ -38,16 +34,16 @@
 			</div> -->
 				</h:panelGroup>
 
-				<div class="select-box box-30">
-					<h:outputText value="Grupos* " />
+				<div class="form-row">
+					<div class="col-6">
+						<label>Grupos*</label><br/>
 
-					<div class="conteiner ">
 						<p:selectOneMenu id="grupo_select"
 							value="#{classificacaoGrupoFormBean.grupoSelecionado}"
 							converter="entityConverter" required="true"
-							styleClass="mg-bottom-10 box-100" style="width: 300px;">
+							styleClass="custom-select form-control" >
 							<f:selectItem id="selecioneGrupo" itemLabel="Selecione..."
-								style="width: 299px;" />
+								 />
 							<f:selectItems value="#{classificacaoGrupoListBean.opcaoGrupo}"
 								var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
 							<p:ajax listener="#{classificacaoGrupoFormBean.consultarGrupo}"
@@ -56,12 +52,14 @@
 					</div>
 				</div>
 
+				<br />
+
 				<p:pickList id="pojoPickList"
 					value="#{classificacaoGrupoFormBean.selecoes}" var="selecao"
 					itemValue="#{selecao}" itemLabel="#{selecao.nome}"
 					converter="primeFacesPickListConverter" showSourceControls="false"
 					showTargetControls="false" showCheckbox="true"
-					showSourceFilter="true" showTargetFilter="true"
+					showSourceFilter="false" showTargetFilter="false"
 					filterMatchMode="contains">
 
 					<f:facet name="sourceCaption">Seleções</f:facet>
@@ -72,7 +70,7 @@
 						update="msg,salvar" />
 
 					<p:column style="width:25%">
-						<p:graphicImage value="../img/#{selecao.id}.png" width="30"
+						<p:graphicImage value="../img/#{selecao.id}.png" width="40"
 							height="40" />
 					</p:column>
 
@@ -80,19 +78,22 @@
 
 				</p:pickList>
 
-			</fieldset>
+			<hr />
+
+			<p:commandButton id="salvar"
+				action="#{classificacaoGrupoFormBean.salvar}" value="Salvar"
+				styleClass="btn btn-primary btn-sm" update="formulario"
+				disabled="#{!classificacaoGrupoFormBean.permiteSalvar}" />
 
 			<p:commandButton id="voltar" immediate="true" value="Voltar"
-				styleClass="fr mg-left-15 mg-bottom-15"
+				styleClass="btn btn-light btn-sm"
 				action="#{classificacaoGrupoFormBean.voltar}" />
+				
 			<p:commandButton id="limpaTela" value="Limpar"
 				action="#{classificacaoGrupoFormBean.limpaTela}" update="formulario"
 				title="Limpar Formulário"
-				styleClass="fr mg-left-15 mg-bottom-15" immediate="true" />
-			<p:commandButton id="salvar"
-				action="#{classificacaoGrupoFormBean.salvar}" value="Salvar"
-				styleClass="fr mg-left-15 mg-bottom-15" update="formulario"
-				disabled="#{!classificacaoGrupoFormBean.permiteSalvar}" />
+				styleClass="btn btn-light btn-sm" immediate="true" />
+
 		</h:form>
 
 	</ui:define>

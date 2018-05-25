@@ -9,48 +9,32 @@
 
 	<ui:define name="content">
 
-		<h:form styleClass="formularios">
+		<h:form>
 
-			<div
-				style="background: url(img/logotst.png) 0 0 no-repeat; margin-bottom: 15px; height: 103px; width: 137px; display: inline-block; margin-left: -20px;"></div>
+			<div class="box-inputs px-4 py-3">
 
-			<div class="box-inputs">
-
-				<div class="mg-bottom-10">
+				<div class="form-group">
 					<label for="login">Login</label>
-					<p:inputText id="login" name="login" value="#{LoginBean.login}" />
-				</div>
+					<p:inputText id="login" name="login" value="#{LoginBean.login}" placeholder="Login" styleClass="form-control" />
+				</div>				
 
-				<div class="mg-bottom-10">
+				<div class="form-group">
 					<label for="senha">Senha</label>
-					<p:password id="senha" value="#{LoginBean.senha}" />
+					<p:password id="senha" value="#{LoginBean.senha}" placeholder="Senha" styleClass="form-control"  />
 				</div>
-
+				
+				<p:commandButton value="Entrar" action="#{LoginBean.autenticar}"
+						 styleClass="btn btn-sm btn-copa form-control" update="mensagem" />	
+				
 				<h:outputText id="mensagem" value="#{LoginBean.mensagem}" styleClass="infoMessage"
 					style="margin:8px" />
-
-				<div class="">
-					<p:commandButton value="Entrar" action="#{LoginBean.autenticar}"
-						style="height: 26px;margin-top:10px;margin-bottom:20px;" update="mensagem" />
+				<br />
+				<div class="form-group">
+					<a href="regras.faces">Regras</a> | 
+					<a href="recuperarSenha.faces">Esqueci minha senha</a> | 
+					<a href="cadastro.faces">Cadastre-se</a>										 
 				</div>
-				<div class="">
-					<p:commandButton value="Regras" action="regras.faces"
-						style="height: 26px;margin-bottom:20px;" />
-				</div>
-
 			</div>
-			<div class="box-inputs">
-				<a href="recuperarSenha.faces">Esqueci minha senha</a>
-			</div>
-			<div class="box-inputs">
-				Não possui Usuário?
-				<!-- <h:commandLink value="Cadastre-se" action="#{participanteFormBean.prepareCadastrar}" /> -->
-
-				<!--                       <h:commandLink value="Cadastre-se" action="#{participanteFormBean.prepareIncluir}" /> -->
-				<a href="cadastro.faces">Cadastre-se</a>
-			</div>
-
-
 		</h:form>
 		
 		<p:dialog id="popup" header="Participante" widgetVar="dlg"
@@ -71,15 +55,7 @@
 						outcome="login" styleClass="fr mg-left-15 mg-bottom-15" />
 				</div>
 			</h:form>
-		</p:dialog>
-		
-		
-
-
-.
-
-
-		
+		</p:dialog>		
 
 	</ui:define>
 

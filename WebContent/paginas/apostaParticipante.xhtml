@@ -10,12 +10,9 @@
 	xmlns:sec="http://www.springframework.org/security/facelets/tags">
 
 	<ui:define name="content">
+			<h1>Apostas por Participante</h1>
 
-		<div class="titulo-pagina">
-			<h2>Consulta de Apostas por Participante</h2>
-		</div>
-
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form">
 
 			<p:focus context="lista" />
 
@@ -23,160 +20,141 @@
 				showDetail="true" autoUpdate="true"
 				rendered="#{apostasParticipanteBean.apostas != null}" /> -->
 
-			<div>
 
 				<!-- <p:growl id="messages" showDetail="true" /> -->
 				
 				<p:messages autoUpdate="true" errorClass="errorMessage" />
 				
-				<div class="input-box box-50">
-					<label for="Participante">Usuário</label>
-					<div class="conteiner">
-						<p:inputText id="Participante" value="#{apostasParticipanteBean.nomeParticipante}" >
-						</p:inputText>
-					</div>
-				</div>
-				
-				<h:panelGrid columns="4">
-				
-					<p:commandButton id="consultar"
+				<div class="form-row">
+					<div class="input-group mb-3 col-12">
+						<div class="input-group-prepend">
+	     					<label class="input-group-text" for="participante">Participante</label>
+	  					</div>
+						<p:inputText id="Participante" value="#{apostasParticipanteBean.nomeParticipante}" styleClass="form-control" ></p:inputText>
+						<div class="input-group-append">
+								<p:commandButton	id="consultar"
 									 value="Buscar"
 									 action="#{apostasParticipanteBean.consultarParticipanteDialog}" 
 									 update=":form2:RadioParticipante"
-									 styleClass="mg-left-18  mg-top-18 "
-									 />
-									 <!-- onsuccess="dlg.show()"
-									 /> -->
-									 
-					<!-- <p:commandButton id="pesquisar"
-									 value="Pesquisar"
-									 action="#{apostasParticipanteBean.searchByParticipante}" 
-									 update="lista,lista2"
-									 styleClass="mg-left-18  mg-top-18"	
-									 /> -->
-					<sec:ifAnyGranted roles="ROLE_ADMIN">
-					<p:commandButton id="relatorio"
-									 value="Relatorio"
-									 actionListener="#{apostasParticipanteBean.relatorio}" 
-									 styleClass="mg-left-18  mg-top-18"
-									 ajax="false"
-									 />
-					</sec:ifAnyGranted>
-					
-					<p:commandButton id="limpaTela" value="Limpar"
-								     action="#{apostasParticipanteBean.limpaTela}"
-									styleClass="mg-left-18  mg-top-18" update="form" />
-				</h:panelGrid>
-
-				
-<!-- 				<p:tabView id="tabView"> -->
-
-<!-- 				<p:tab id="tab1" title="Aposta Jogos"> -->
-						<p:dataTable id="lista" value="#{apostasParticipanteBean.apostas}"
-							var="item" emptyMessage="Não há registros" editable="false"
-							editMode="cell" cellSeparator=" \/ " styleClass="tabela-dados fl"
-							style="width: 65%;">
-
-							<f:facet name="header">Jogos</f:facet>
-
-							<p:column id="col1" headerText="ID" styleClass="center">
-								<h:outputText value="#{item.jogos.id}" />
-							</p:column>
-
-							<p:column id="col2" headerText="Grupo" styleClass="center">
-								<h:outputText value="#{item.jogos.grupo.nome}" />
-							</p:column>
-
-							<p:column id="col3" headerText="Data do Jogo" styleClass="center"
-								style="white-space:normal;">
-								<h:outputText id="item4" value="#{item.jogos.dtJogo}">
-									<f:convertDateTime id="convIni" type="date"
-										pattern="dd/MM/yyyy" />
-								</h:outputText>
-							</p:column>
-
-							<p:column id="col4" headerText="Seleção"
-								style="text-align: right;">
-								<h:panelGrid columns="2" style="border:transparent;">
-									<h:outputText value="#{item.jogos.selecao1.nome}" />
-									<h:graphicImage value="../img/#{item.jogos.selecao1.id}.png" />
-								</h:panelGrid>
-							</p:column>
-
-							<p:column headerText="" styleClass="center">
-								<h:outputText value="#{item.gol1}" />
-							</p:column>
-
-							<p:column id="col5" headerText="Vs" styleClass="center">
-								<h:outputText value=" X " />
-							</p:column>
-
-							<p:column headerText="" styleClass="center">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{item.gol2}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputMask mask="?99" maxlength="2" placeHolder=""
-											value="#{item.gol2}" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-							<p:column id="col6" headerText="Seleção"
-								style="text-align: left;">
-								<h:panelGrid columns="2" style="border:transparent;">
-									<h:graphicImage value="../img/#{item.jogos.selecao2.id}.png" />
-									<h:outputText value="#{item.jogos.selecao2.nome}" />
-								</h:panelGrid>
-							</p:column>
-
-							<p:column id="col7" headerText="Pontos" styleClass="center">
-								<h:outputText value="#{item.pontos}" />
-							</p:column>
-
-						</p:dataTable>
-<!-- 					</p:tab> -->
-
-<!-- 					<p:tab id="tab2" title="Aposta Grupos"> -->
-
-						<p:dataTable id="lista2"
-							value="#{apostasParticipanteBean.apostaGrupo}" var="item2"
-							emptyMessage="Não há registros"
-							style="clear: none;" cellSeparator=" \/ "
-							styleClass="tabela-dados fr">
-							rowStyleClass="#{item.gol1 eq null || item.gol2 eq null ? 'row' : null}">
-
-							<f:facet name="header">Grupos</f:facet>
-
-
-							<p:column id="col8" headerText="Grupo" styleClass="center">
-								<h:outputText value="#{item2.grupo.nome}" />
-							</p:column>
-
-							<p:column id="col9" headerText="1ª Posição"
-								style="text-align: right;">
-								<h:panelGrid columns="2" style="border:transparent;">
-									<h:outputText value="#{item2.posicao1.nome}" />
-									<h:graphicImage value="../img/#{item2.posicao1.id}.png" />
-								</h:panelGrid>
-							</p:column>
-
-							<p:column id="col10" headerText="2ª Posição"
-								style="text-align: left;">
-								<h:panelGrid columns="2" style="border:transparent;">
-									<h:graphicImage value="../img/#{item2.posicao2.id}.png" />
-									<h:outputText value="#{item2.posicao2.nome}" />
-								</h:panelGrid>
-							</p:column>
-
-						</p:dataTable>
-						
-<!-- 					</p:tab> -->
-<!-- 				</p:tabView> -->
-
-			</div>
-
+													styleClass="btn  btn-secondary btn-sm"
+													 />
+													 
+								<p:commandButton id="limpaTela" value="Limpar"
+											     action="#{apostasParticipanteBean.limpaTela}"
+												styleClass="btn btn-sm" update="form" />
+								<sec:ifAnyGranted roles="ROLE_ADMIN">
+								<p:commandButton id="relatorio"
+												 value="Relatorio"
+												 actionListener="#{apostasParticipanteBean.relatorio}" 
+												 styleClass="btn btn-sm"
+												 ajax="false"
+												 />
+								</sec:ifAnyGranted>
+								
+			  				</div>
+			  		</div>
+		  		</div>
+					<div class="row">
+						<div class="col-9">				
+							<p:dataTable id="lista" value="#{apostasParticipanteBean.apostas}"
+								var="item" emptyMessage="Não há registros" editable="false"
+								editMode="cell" cellSeparator=" \/ " styleClass="table table-hover table-striped table-sm"
+								>
+	
+								<f:facet name="header">Jogos</f:facet>
+	
+								<p:column id="col1" headerText="ID" styleClass="center">
+									<h:outputText value="#{item.jogos.id}" />
+								</p:column>
+	
+								<p:column id="col2" headerText="Grupo" styleClass="center">
+									<h:outputText value="#{item.jogos.grupo.nome}" />
+								</p:column>
+	
+								<p:column id="col3" headerText="Data do Jogo" styleClass="center"
+									style="white-space:normal;">
+									<h:outputText id="item4" value="#{item.jogos.dtJogo}">
+										<f:convertDateTime id="convIni" type="date"
+											pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+	
+								<p:column id="col4" headerText="Seleção"
+									style="text-align: right;">
+									<h:panelGrid columns="2" style="border:transparent;">
+										<h:outputText value="#{item.jogos.selecao1.nome}" />
+										<h:graphicImage value="../img/#{item.jogos.selecao1.id}.png" />
+									</h:panelGrid>
+								</p:column>
+	
+								<p:column headerText="" styleClass="center">
+									<h:outputText value="#{item.gol1}" />
+								</p:column>
+	
+								<p:column id="col5" headerText="Vs" styleClass="center">
+									<h:outputText value=" X " />
+								</p:column>
+	
+								<p:column headerText="" styleClass="center">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{item.gol2}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputMask mask="?99" maxlength="2" placeHolder=""
+												value="#{item.gol2}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+	
+								<p:column id="col6" headerText="Seleção"
+									style="text-align: left;">
+									<h:panelGrid columns="2" style="border:transparent;">
+										<h:graphicImage value="../img/#{item.jogos.selecao2.id}.png" />
+										<h:outputText value="#{item.jogos.selecao2.nome}" />
+									</h:panelGrid>
+								</p:column>
+	
+								<p:column id="col7" headerText="Pontos" styleClass="center">
+									<h:outputText value="#{item.pontos}" />
+								</p:column>
+	
+							</p:dataTable>
+						</div>
+						<div class="col-3">	
+							<p:dataTable id="lista2"
+								value="#{apostasParticipanteBean.apostaGrupo}" var="item2"
+								emptyMessage="Não há registros"
+								style="clear: none;" cellSeparator=" \/ "
+								styleClass="table table-hover table-striped table-sm">
+								rowStyleClass="#{item.gol1 eq null || item.gol2 eq null ? 'row' : null}">
+	
+								<f:facet name="header">Grupos</f:facet>
+	
+	
+								<p:column id="col8" headerText="Grupo" styleClass="center">
+									<h:outputText value="#{item2.grupo.nome}" />
+								</p:column>
+	
+								<p:column id="col9" headerText="1ª Posição"
+									style="text-align: right;">
+									<h:panelGrid columns="2" style="border:transparent;">
+										<h:outputText value="#{item2.posicao1.nome}" />
+										<h:graphicImage value="../img/#{item2.posicao1.id}.png" />
+									</h:panelGrid>
+								</p:column>
+	
+								<p:column id="col10" headerText="2ª Posição"
+									style="text-align: left;">
+									<h:panelGrid columns="2" style="border:transparent;">
+										<h:graphicImage value="../img/#{item2.posicao2.id}.png" />
+										<h:outputText value="#{item2.posicao2.nome}" />
+									</h:panelGrid>
+								</p:column>
+	
+							</p:dataTable>
+						</div>
+					</div>
 
 		</h:form>
 		
@@ -191,9 +169,10 @@
 	               					 > -->
 	               					 		 
 	               		<p:column width="40">
-	               			<p:commandButton icon="ui-icon-extlink" onclick="dlg.hide()" 
+	               			<p:commandButton icon="fas fa-search" onclick="dlg.hide()" 
 	               					 		update=":form, :form:lista, :form:lista2"
-	               					 		action="#{apostasParticipanteBean.aposConsultarParticipante(item)}" >		
+	               					 		action="#{apostasParticipanteBean.aposConsultarParticipante(item)}"
+	               					 		styleClass="btn btn-secondary btn-sm" style="height: 30px;" >		
 	               			</p:commandButton>
 	               		</p:column>  
 						<p:column id="participantes" headerText="Nome" filterBy="#{item.nome}" filterMatchMode="contains" filterValue="">  

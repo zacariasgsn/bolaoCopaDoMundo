@@ -9,76 +9,92 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Jogos</h1>
 
-		<div class="titulo-pagina">
+		<h:form id="form">
+		
+			<p:commandButton id="incluir" value="Novo Jogo"
+				action="#{jogosFormBean.prepareIncluir}" styleClass="btn btn-secondary btn-sm"
+				title="Ir para formulario de criação de Jogos" />
+			
+			<p:commandButton id="limpaTela" value="Limpar Consulta"
+				 action="#{jogosListBean.limpaTela}"
+				styleClass="btn btn-light btn-sm" update="form" />	
 
-			<h2>Consulta de Jogos</h2>
+			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
+				action="#{jogosListBean.geraPontuacao}"
+				styleClass="btn btn-copa btn-sm" update="form" />
 
-		</div>
-		<h:form id="form" styleClass="formularios box-border">
-
+			<hr />
 			<p:messages errorClass="errorMessage" showDetail="false"
 				autoUpdate="true" rendered="true" />
 
-			<div class="select-box box-15">
-				<label for="">Grupos</label>
-				<p:selectOneMenu id="grupo"
-					value="#{jogosListBean.grupoSelecionado}"
-					converter="entityConverter" styleClass="mg-right-10 mg-bottom-10">
-					<f:selectItem itemLabel="Selecione..."></f:selectItem>
-					<f:selectItems var="grupo" value="#{jogosListBean.opcaoGrupo}"
-						itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
-				</p:selectOneMenu>
-			</div>
-
-			<div class="input-box box-10">
-				<label for="">Data do Jogo</label>
-				<div class="conteiner">
-					<p:calendar locale="pt" id="datajogo"
-						value="#{jogosListBean.datajogo}" converter="dateConverter"
-						mindate="14/06/2018" maxdate="28/06/2018" pattern="dd/MM/yyyy" />
+			<div class="form-row">
+				<div class="input-group mb-3 col-6">
+					<div class="input-group-prepend">
+     					<label class="input-group-text" for="situacao">Grupos</label>
+  					</div>
+					<p:selectOneMenu id="grupo"
+						value="#{jogosListBean.grupoSelecionado}"
+						converter="entityConverter" styleClass="custom-select">
+						<f:selectItem itemLabel="Selecione..."></f:selectItem>
+						<f:selectItems var="grupo" value="#{jogosListBean.opcaoGrupo}"
+							itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
+					</p:selectOneMenu>
 				</div>
+				
+				<div class="input-group mb-3 col-6">
+					<div class="input-group-prepend">
+						<label class="input-group-text" for="participante">Data do Jogo</label>
+					</div>
+					<p:inputText id="nome" type="date" value="#{jogosListBean.datajogo}" styleClass="form-control" max="28/06/2018" min="14/06/2018"/>
+					<!-- <p:calendar locale="pt" id="datajogo"
+								value="#{jogosListBean.datajogo}" converter="dateConverter"
+								mindate="14/06/2018" maxdate="28/06/2018" pattern="dd/MM/yyyy"
+								styleClass="form-control"/>	-->							
+					<div class="input-group-append">
+							<p:commandButton	id="consultar"
+											value="Consultar"
+											action="#{jogosListBean.consultar}"
+											update="lista"
+											styleClass="btn btn-secondary btn-sm"
+											/>
+	  				</div>
+		  		</div>				
 			</div>
-
-			<p:commandButton id="consultar" value="Consultar"
-				action="#{jogosListBean.consultar}"
-				styleClass="fl mg-left-15 mg-right-15 mg-top-18" update="lista" />
-
-			<div style="clear: both;">
 
 				<p:growl id="messages" showDetail="true" />
 
 				<p:dataTable id="lista" value="#{jogosListBean.jogos}" var="item"
 					emptyMessage="Não há registros" editable="true" editMode="cell"
+					styleClass="table table-sm table-hover table-striped"
 					cellSeparator=" \/ ">
 					<!-- 					<p:ajax event="cellEdit" listener="#{jogosListBean.onCellEdit}" -->
 					<!-- 						update=":form:messages" /> -->
 
-					<f:facet name="header">Jogos</f:facet>
-
-					<p:column id="col2" styleClass="cel-8 center" headerText="Grupo">
+					<p:column id="col2" headerText="Grupo">
 						<h:outputText value="#{item.grupo.nome}" />
 					</p:column>
-					<p:column id="col3" styleClass="cel-10 center"
+					<p:column id="col3"
 						headerText="Data do Jogo">
 						<h:outputText id="item4" value="#{item.dtJogo}">
 							<f:convertDateTime id="convIni" type="date" pattern="dd/MM/yyyy" />
 						</h:outputText>
 
 					</p:column>
-					<p:column id="col4" styleClass="cel-10 center" headerText="Seleção">
-						<h:outputText value="#{item.selecao1.nome}" styleClass="cel-10" />
+					<p:column id="col4" headerText="Seleção">
+						<h:outputText value="#{item.selecao1.nome}" styleClass="text-right" />
 					</p:column>
 
-					<p:column id="colB1" styleClass="cel-3 center">
+					<p:column id="colB1">
 						<h:graphicImage value="../img/#{item.selecao1.id}.png" />
 					</p:column>
 
-					<p:column headerText="" styleClass="tabela-dados cel-3 center">
+					<p:column headerText="">
 						<p:inputMask id="gol1" value="#{item.gol1t}"
 							mask="?99"
 							placeHolder=""
-							style="width:13px; margin-left:5px; margin-right:6px;text-align:center;">
+							styleClass="form-control form-control-sm">
 							<p:ajax event="keyup" listener="#{jogosListBean.onCellEdit}"
 								update=":form:messages" />
 						</p:inputMask>
@@ -93,17 +109,18 @@
 						<!-- 						</p:cellEditor> -->
 					</p:column>
 
-					<p:column id="col5" styleClass="cel-3 center" headerText="Vs">
+					<p:column id="col5" headerText="Vs">
 						<h:outputText value=" X " />
 					</p:column>
 
-					<p:column headerText="" styleClass="tabela-dados cel-3 center">
+					<p:column headerText="">
 						<p:inputMask id="gol2" value="#{item.gol2t}" mask="?99"
 							placeHolder=""
-							style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;">
+							 styleClass="form-control form-control-sm">
 							<p:ajax event="keyup" listener="#{jogosListBean.onCellEdit}"
 								update=":form:messages" />
 						</p:inputMask>
+
 						<!-- 						<p:cellEditor> -->
 						<!-- 							<f:facet name="output"> -->
 						<!-- 								<h:outputText value="#{item.gol2}" style="text-align:center" /> -->
@@ -114,23 +131,23 @@
 						<!-- 							</f:facet> -->
 						<!-- 						</p:cellEditor> -->
 					</p:column>
-					<p:column id="colB2" styleClass="cel-3 center">
+					<p:column id="colB2">
 						<h:graphicImage value="../img/#{item.selecao2.id}.png" />
 					</p:column>
-					<p:column id="col6" styleClass="cel-10 center" headerText="Seleção">
+					<p:column id="col6" headerText="Seleção">
 						<h:outputText value="#{item.selecao2.nome}" styleClass="cel-10" />
 					</p:column>
 
-					<p:column id="col7" styleClass="cel-3 center" headerText="EDITAR">
+					<p:column id="col7" headerText="Editar">
 						<h:link id="editar" value="Editar" outcome="/paginas/jogosForm"
-							styleClass="ico-editar">
+							styleClass="btn btn-secondary btn-sm">
 							<f:param name="idjogo" value="#{item.id}" />
 						</h:link>
 					</p:column>
 
-					<p:column id="col8" styleClass="cel-3 center" headerText="EXCLUIR">
+					<p:column id="col8" headerText="Excluir">
 						<p:commandLink id="excluir" value="Excluir"
-							styleClass="ico-delete" action="#{jogosListBean.excluir}"
+							styleClass="btn btn-danger btn-sm" action="#{jogosListBean.excluir}"
 							onclick="var x = confirm('Deseja realmente excluir o registro?');if(!x){return false;}"
 							update="lista">
 							<f:setPropertyActionListener target="#{jogosListBean.jogo}"
@@ -139,20 +156,6 @@
 					</p:column>
 
 				</p:dataTable>
-
-			</div>
-
-			<p:commandButton id="limpaTela" value="Limpar"
-				style="margin-top:5px;" action="#{jogosListBean.limpaTela}"
-				styleClass="fr mg-left-15" update="form" />
-
-			<p:commandButton id="incluir" value="Incluir" style="margin-top:5px;"
-				action="#{jogosFormBean.prepareIncluir}" styleClass="fr mg-left-15"
-				title="Ir para formulario de criação de Jogos" />
-
-			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
-				style="margin-top:5px;" action="#{jogosListBean.geraPontuacao}"
-				styleClass="fr mg-left-15" update="form" />
 		</h:form>
 
 	</ui:define>

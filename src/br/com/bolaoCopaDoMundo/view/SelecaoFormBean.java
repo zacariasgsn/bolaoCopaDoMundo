@@ -79,7 +79,7 @@ public class SelecaoFormBean implements Serializable {
 			selecaoService.salvar(selecao);
 			limpar();
 			FacesUtil
-					.addInfoMessage("Opera��o realizada com sucesso. A nova secao foi salva.");
+					.addInfoMessage("Operação realizada com sucesso. A nova seleção foi salva.");
 			logger.info("Operacao realizada com sucesso.");
 		} catch (BolaoCopaDoMundoRuntimeException e) {
 			FacesUtil.addErroMessage("Ocorreu o seguinte erro: "
@@ -87,15 +87,15 @@ public class SelecaoFormBean implements Serializable {
 			logger.warn("Ocorreu o seguinte erro: " + e.getMessage());
 		} catch (PersistenceException e) {
 			FacesUtil
-					.addErroMessage("Ocorreu algum erro ao salvar. Opera��o cancelada.");
+					.addErroMessage("Ocorreu algum erro ao salvar. Operação cancelada.");
 			logger.fatal("Ocorreu o seguinte erro: " + e.getMessage());
 		} catch (JDBCException e) {
 			FacesUtil
-					.addErroMessage("Ocorreu algum erro ao salvar. Opera��o cancelada.");
+					.addErroMessage("Ocorreu algum erro ao salvar. Operação cancelada.");
 			logger.fatal("Ocorreu o seguinte erro: " + e.getMessage());
 		} catch (Exception e) {
 			FacesUtil
-					.addErroMessage("Ocorreu algum erro ao salvar. Opera��o cancelada.");
+					.addErroMessage("Ocorreu algum erro ao salvar. Operação cancelada.");
 			logger.fatal("Ocorreu o seguinte erro: " + e.getMessage());
 		}
 

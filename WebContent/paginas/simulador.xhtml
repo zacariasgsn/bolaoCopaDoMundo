@@ -9,140 +9,135 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Simulador</h1>
 
-		<div class="titulo-pagina">
-
-			<h2>Consulta de Jogos</h2>
-
-		</div>
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form">
 
 			<p:messages errorClass="errorMessage" showDetail="false"
 				autoUpdate="true" rendered="true" />
 
-			<div style="clear: both;">
+			<p:growl id="messages" showDetail="true" />
 
-				<p:growl id="messages" showDetail="true" />
-
-
-				<p:dataTable id="lista2" style="float:left; width:63%;"
-					value="#{simuladorListBean.classificacaoList}"
-					rowIndexVar="rowIndex" var="item" paginatorPosition="bottom"
-					paginator="true" rows="20"
-					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="20,30,40" styleClass="tabela-dados"
-					emptyMessage="Não há registros"
-					rowStyleClass="#{rowIndex == 0 ? 'linha-gold' : null} #{rowIndex == 1 ? 'linha-silver' : null} #{rowIndex == 2 ? 'linha-bronze' : null} #{rowIndex == 3 ? 'linha-copper' : null}">
-
-					<f:facet name="header">Classificação</f:facet>
-
-					<p:column styleClass="cel-3 center" headerText="Class." style="padding:2px;">
-						<h:outputText value="#{rowIndex+1}" />
-					</p:column>
-
-					<!-- 					<p:column styleClass="cel-3 center" headerText="id"> -->
-					<!-- 						<h:outputText value="#{item.id}" /> -->
-					<!-- 					</p:column> -->
-
-					<p:column headerText="NOME">
-						<h:outputText value="#{item.participante.nome}" />
-					</p:column>
-
-					<p:column styleClass="cel-3 center" headerText="Total" style="padding:2px;">
-						<h:outputText value="#{item.totalPontos}" />
-					</p:column>
-
-					<p:column styleClass="cel-3 center" headerText="Pontos Jogos"
-						style="white-space:normal; padding:2px;">
-						<h:outputText value="#{item.pontosJogo}" />
-					</p:column>
-
-					<p:column styleClass="cel-3 center" headerText="Pontos Grupo"
-						style="white-space:normal; padding:2px;">
-						<h:outputText value="0"
-							rendered="#{item.pontosClassificacao == null}" />
-						<h:outputText value="#{item.pontosClassificacao}"
-							rendered="#{item.pontosClassificacao != null}" />
-					</p:column>
-
-					<p:column styleClass="center" headerText="Escores Cheios"
-						style="white-space:normal; padding:2px;">
-						<h:outputText value="#{item.escoreCheio}" />
-					</p:column>
-
-					<p:column styleClass="center" headerText="Jogos do Brasil"
-						style="white-space:normal; padding:2px;">
-						<h:outputText value="#{item.pontosBrasil}" />
-					</p:column>
-					
-					<p:column styleClass="center" headerText="Acertos 1º Lugar Grupo"
-						style="white-space:normal; padding:2px;">
-						<h:outputText value="#{item.acertoPrimeiroLugar}" />
-					</p:column>
-
-				</p:dataTable>
-
-				<div style="width: 35%; float:left; margin-left:19px;">
-					<p:dataGrid var="item" value="#{simuladorListBean.jogos}"
-						columns="1" rows="6" paginator="true"
-						emptyMessage="Não há registros" paginatorPosition="bottom"
-						paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="6,9,12,15">
+			<div class="row">
+				<div class="col-8">
+					<p:dataTable id="lista2"
+						value="#{simuladorListBean.classificacaoList}"
+						rowIndexVar="rowIndex" var="item" paginatorPosition="bottom"
+						paginator="true" rows="20"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="20,30,40" styleClass="table table-sm table-hover table-striped"
+						emptyMessage="Não há registros"
+						rowStyleClass="#{rowIndex == 0 ? 'linha-gold' : null} #{rowIndex == 1 ? 'linha-silver' : null} #{rowIndex == 2 ? 'linha-bronze' : null} #{rowIndex == 3 ? 'linha-copper' : null}">
+	
+						<f:facet name="header">Classificação</f:facet>
+	
+						<p:column styleClass="cel-3 center" headerText="Class." style="padding:2px;">
+							<h:outputText value="#{rowIndex+1}" />
+						</p:column>
+	
+						<!-- 					<p:column styleClass="cel-3 center" headerText="id"> -->
+						<!-- 						<h:outputText value="#{item.id}" /> -->
+						<!-- 					</p:column> -->
+	
+						<p:column headerText="NOME">
+							<h:outputText value="#{item.participante.nome}" />
+						</p:column>
+	
+						<p:column styleClass="cel-3 center" headerText="Total" style="padding:2px;">
+							<h:outputText value="#{item.totalPontos}" />
+						</p:column>
+	
+						<p:column styleClass="cel-3 center" headerText="Pontos Jogos"
+							style="white-space:normal; padding:2px;">
+							<h:outputText value="#{item.pontosJogo}" />
+						</p:column>
+	
+						<p:column styleClass="cel-3 center" headerText="Pontos Grupo"
+							style="white-space:normal; padding:2px;">
+							<h:outputText value="0"
+								rendered="#{item.pontosClassificacao == null}" />
+							<h:outputText value="#{item.pontosClassificacao}"
+								rendered="#{item.pontosClassificacao != null}" />
+						</p:column>
+	
+						<p:column styleClass="center" headerText="Escores Cheios"
+							style="white-space:normal; padding:2px;">
+							<h:outputText value="#{item.escoreCheio}" />
+						</p:column>
+	
+						<p:column styleClass="center" headerText="Jogos do Brasil"
+							style="white-space:normal; padding:2px;">
+							<h:outputText value="#{item.pontosBrasil}" />
+						</p:column>
 						
-						<f:facet name="header">
-							<h:outputText value="Simulador"></h:outputText>
-						</f:facet>
-						
-						<p:panel style="text-align:center;">
-							<f:facet name="header">
-								<h:outputText value="#{item.grupo.nome} - " />
-								<h:outputText value="#{item.dtJogo}">
-									<f:convertDateTime id="convIni" type="date"
-										pattern="dd/MM/yyyy" />
-								</h:outputText>
-							</f:facet>
-							<h:panelGrid columns="5" style="margin-left:85px;">
+						<p:column styleClass="center" headerText="Acertos 1º Lugar Grupo"
+							style="white-space:normal; padding:2px;">
+							<h:outputText value="#{item.acertoPrimeiroLugar}" />
+						</p:column>
+	
+					</p:dataTable>
 
-								<h:graphicImage value="../img/#{item.selecao1.id}.png"
-									title="#{item.selecao1.nome}" />
-								<h:outputText id="golOk1" value="#{item.gol1}"
-									rendered="#{item.flResultadoOk}"
-									style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;" />
-								<p:inputMask id="gol1" value="#{item.gol1t}"
-									rendered="#{!item.flResultadoOk}"
-									maxlength="2"
-									mask="?99"
-									placeHolder=""
-									style="width:13px; margin-left:5px; margin-right:6px;text-align:center;">
-									<p:ajax event="keyup" listener="#{simuladorListBean.tstAltera}"
-										update=":form:lista2" />
-								</p:inputMask>
-
-								<h:outputText value=" X " />
-
-								<h:outputText id="golOk2" value="#{item.gol2}"
-									rendered="#{item.flResultadoOk}"
-									style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;" />
-								<p:inputMask id="gol2" value="#{item.gol2t}"
-									rendered="#{!item.flResultadoOk}"
-									maxlength="2"
-									mask="?99"
-									placeHolder=""
-									style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;">
-									<p:ajax event="keyup" listener="#{simuladorListBean.tstAltera}"
-										update=":form:lista2" />
-								</p:inputMask>
-
-								<h:graphicImage value="../img/#{item.selecao2.id}.png"
-									title="#{item.selecao2.nome}" />
-
-							</h:panelGrid>
-
-						</p:panel>
-					</p:dataGrid>
 				</div>
-
-			</div>
+				<div class="col-4">
+						<p:dataGrid var="item" value="#{simuladorListBean.jogos}"
+							columns="1" rows="6" paginator="true"
+							emptyMessage="Não há registros" paginatorPosition="bottom"
+							paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="6,9,12,15">
+							
+							<f:facet name="header">
+								<h:outputText value="Simulador"></h:outputText>
+							</f:facet>
+							
+							<p:panel style="text-align:center;">
+								<f:facet name="header">
+									<h:outputText value="#{item.grupo.nome} - " />
+									<h:outputText value="#{item.dtJogo}">
+										<f:convertDateTime id="convIni" type="date"
+											pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</f:facet>
+								<h:panelGrid columns="5" style="margin-left:85px;">
+	
+									<h:graphicImage value="../img/#{item.selecao1.id}.png"
+										title="#{item.selecao1.nome}" />
+									<h:outputText id="golOk1" value="#{item.gol1}"
+										rendered="#{item.flResultadoOk}"
+										style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;" />
+									<p:inputMask id="gol1" value="#{item.gol1t}"
+										rendered="#{!item.flResultadoOk}"
+										maxlength="2"
+										mask="?99"
+										placeHolder=""
+										styleClass="form-control">
+										<p:ajax event="keyup" listener="#{simuladorListBean.tstAltera}"
+											update=":form:lista2" />
+									</p:inputMask>
+	
+									<h:outputText value=" X " />
+	
+									<h:outputText id="golOk2" value="#{item.gol2}"
+										rendered="#{item.flResultadoOk}"
+										style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;" />
+									<p:inputMask id="gol2" value="#{item.gol2t}"
+										rendered="#{!item.flResultadoOk}"
+										maxlength="2"
+										mask="?99"
+										placeHolder=""
+										styleClass="form-control">
+										<p:ajax event="keyup" listener="#{simuladorListBean.tstAltera}"
+											update=":form:lista2" />
+									</p:inputMask>
+	
+									<h:graphicImage value="../img/#{item.selecao2.id}.png"
+										title="#{item.selecao2.nome}" />
+	
+								</h:panelGrid>
+	
+							</p:panel>
+						</p:dataGrid>
+					</div>
+				</div>
 		</h:form>
 
 	</ui:define>

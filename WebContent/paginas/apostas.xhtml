@@ -9,12 +9,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Minhas Apostas</h1>
 
-		<div class="titulo-pagina">
-			<h2>Minhas Apostas</h2>
-		</div>
-
-		<h:form id="form" styleClass="formularios box-border">
+		<h:form id="form">
 
 			<p:focus context="lista" />
 
@@ -29,7 +26,8 @@
 				<!-- <p:remoteCommand name="onCellEdit" /> -->
 				<p:dataTable id="lista" value="#{apostasBean.apostas}" var="item"
 					emptyMessage="Não há registros" editable="true" editMode="cell"
-					cellSeparator=" \/ ">
+					cellSeparator=" \/ "
+					styleClass="table table-sm table-hover table-striped">
 					<!-- rowStyleClass="#{item.gol1 eq null || item.gol2 eq null ? 'row' : null}"> -->
 
 					<!-- <f:facet name="header">Jogos</f:facet> -->
@@ -37,7 +35,7 @@
 <!-- 					<p:ajax event="cellEdit" listener="#{apostasBean.onCellEdit}" -->
 <!-- 						update=":form:messages" /> -->
 
-					<p:column id="col1" headerText="ID" styleClass="center">
+					<p:column id="col1" headerText="ID" styleClass="text-left">
 						<h:outputText value="#{item.jogos.id}" />
 					</p:column>
 
@@ -45,7 +43,7 @@
 						<h:outputText value="#{item.jogos.grupo.nome}" />
 					</p:column>
 
-					<p:column id="col3" headerText="Data do Jogo" styleClass="center">
+					<p:column id="col3" headerText="Data do Jogo" styleClass="text-left">
 						<h:outputText id="item4" value="#{item.jogos.dtJogo}">
 							<f:convertDateTime id="convIni" type="date" pattern="dd/MM/yyyy" />
 						</h:outputText>
@@ -55,8 +53,8 @@
 					<!-- 						<h:outputText value="#{item.jogos.selecao1.nome}" /> -->
 					<!-- 						<h:graphicImage value="../img/#{item.jogos.selecao1.id}.png" /> -->
 					<!-- 					</p:column> -->
-					<p:column id="col4" styleClass="cel-10 center" headerText="Seleção">
-						<h:outputText value="#{item.jogos.selecao1.nome}" styleClass="cel-10" />
+					<p:column id="col4" headerText="Seleção" styleClass="text-right" >
+						<h:outputText value="#{item.jogos.selecao1.nome}" styleClass="text-right" />
 					</p:column>
 
 					<p:column id="colB1" styleClass="cel-3 center">
@@ -70,7 +68,7 @@
 							mask="?99"
 							placeHolder=""
 							readonly="#{apostasBean.podeAlterar}"
-							style="width:13px; margin-left:5px; margin-right:6px;text-align:center;">
+							styleClass="form-control">
 							<p:ajax event="keyup" listener="#{apostasBean.onCellEdit}"
 								update=":form:messages" />
 						</p:inputMask>
@@ -93,7 +91,7 @@
 						<p:inputMask id="gol2" value="#{item.gol2t}" mask="?99"
 							placeHolder=""
 							readonly="#{apostasBean.podeAlterar}"
-							style="width: 13px; margin-left: 7px; margin-right: 5px;text-align:center;">
+							styleClass="form-control">
 							<p:ajax event="keyup" listener="#{apostasBean.onCellEdit}"
 								update=":form:messages" />
 						</p:inputMask>
@@ -115,8 +113,8 @@
 					<p:column id="colB2" styleClass="cel-3 center">
 						<h:graphicImage value="../img/#{item.jogos.selecao2.id}.png" />
 					</p:column>
-					<p:column id="col6" styleClass="cel-10 center" headerText="Seleção">
-						<h:outputText value="#{item.jogos.selecao2.nome}" styleClass="cel-10" />
+					<p:column id="col6" styleClass="text-left" headerText="Seleção">
+						<h:outputText value="#{item.jogos.selecao2.nome}" styleClass="text-left" />
 					</p:column>
 
 				</p:dataTable>

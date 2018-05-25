@@ -1,6 +1,8 @@
 package br.com.bolaoCopaDoMundo.view;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -73,7 +75,7 @@ public class JogosListBean implements Serializable {
 	private Selecao selecao2Selecionado;
 	private List<Selecao> opcaoSelecao1;
 	private List<Selecao> opcaoSelecao2;
-	private Date datajogo;
+	private String datajogo;
 	private List<Jogos> jogos;
 	private List<Jogos> jogosOk;
 	private List<Participante> participantes;
@@ -102,7 +104,7 @@ public class JogosListBean implements Serializable {
 			opcaoSelecao1 = new ArrayList<Selecao>();
 			opcaoSelecao2 = new ArrayList<Selecao>();
 			FacesUtil
-					.addErroMessage("Ocorreu algum erro na consulta. Opera��o cancelada.");
+					.addErroMessage("Ocorreu algum erro na consulta. Operação cancelada.");
 			logger.fatal("Ocorreu o seguinte erro: " + e.getMessage());
 		}
 
@@ -110,7 +112,19 @@ public class JogosListBean implements Serializable {
 
 	public void consultar() {
 
-		lista = jogosService.findByCriterios(datajogo, grupoSelecionado);
+		Date data = null;
+				
+		if (datajogo != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				data = format.parse(datajogo);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		lista = jogosService.findByCriterios(data, grupoSelecionado);
 
 		if (lista == null || lista.isEmpty())
 			FacesUtil
@@ -326,11 +340,11 @@ public class JogosListBean implements Serializable {
 		this.opcaoSelecao2 = opcaoSelecao2;
 	}
 
-	public Date getDatajogo() {
+	public String getDatajogo() {
 		return datajogo;
 	}
 
-	public void setDatajogo(Date datajogo) {
+	public void setDatajogo(String datajogo) {
 		this.datajogo = datajogo;
 	}
 

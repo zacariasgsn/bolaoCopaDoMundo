@@ -8,11 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
-
-
-		<div class="titulo-pagina">
-			<h2>Cadastro de Jogos</h2>
-		</div>
+		<h1>Novo Jogo</h1>
 
 		<f:metadata>
 			<f:viewParam name="idJogo" id="idJogo"
@@ -20,13 +16,11 @@
 			<f:event type="preRenderView" listener="#{jogosFormBean.init}" />
 		</f:metadata>
 
-		<h:form styleClass="formularios" id="formulario">
-
-			<fieldset>
+		<h:form id="formulario">
 
 				<p:messages infoClass="infoMessage" errorClass="errorMessage"
 					rendered="true" />
-
+			<div class="form-row">
 				<h:panelGroup rendered="#{jogosFormBean.alterar == true}">
 					<div class="input-box box-10 mg-bottom-10">
 						<h:outputText value="ID" />
@@ -36,21 +30,19 @@
 					</div>
 				</h:panelGroup>
 
-				<div class="input-box box-10">
+				<div class="col-3">
 					<label for="">Data do Jogo</label>
-					<div class="conteiner">
-						<p:inputText id="datajogo" name="datajogo" styleClass="maskData"
+						<p:inputText id="datajogo" name="datajogo" styleClass="form-control"
 							converter="dateConverter" value="#{jogosFormBean.datajogo}"
 							maxlength="10" />
-					</div>
 				</div>
 
-				<div class="select-box box-15 clr">
-					<label for="grupo_select">Grupo</label>
+				<div class="col-3">
+					<label for="grupo_select">Grupo</label><br/>
 					<p:selectOneMenu id="grupo_select"
 						value="#{jogosFormBean.grupoSelecionado}"
 						converter="entityConverter" required="true"
-						disabled="#{jogosFormBean.alterar}">
+						disabled="#{jogosFormBean.alterar}" styleClass="custom-select">
 						<f:selectItem id="selecioneGrupo" itemLabel="Selecione..." />
 						<f:selectItems value="#{jogosListBean.opcaoGrupo}" var="grupo"
 							itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
@@ -59,40 +51,41 @@
 					</p:selectOneMenu>
 				</div>
 
-				<div class="select-box box-15 clr">
-					<label for="">Seleção 1</label>
+				<div class="col-3">
+					<label for="">Seleção 1</label><br/>
 					<p:selectOneMenu id="listaSelecao1"
 						value="#{jogosFormBean.selecao1Selecionado}"
-						converter="entityConverter">
+						converter="entityConverter" styleClass="custom-select">
 						<f:selectItem itemLabel="Selecione..."></f:selectItem>
 						<f:selectItems var="sel1" value="#{jogosFormBean.opcaoSelecao1}"
 							itemValue="#{sel1}" itemLabel="#{sel1.nome}" />
 					</p:selectOneMenu>
 				</div>
 
-				<div class="select-box box-15 clr">
-					<label for="">Seleção 2</label>
+				<div class="col-3">
+					<label for="">Seleção 2</label><br/>
 					<p:selectOneMenu id="listaSelecao2"
 						value="#{jogosFormBean.selecao2Selecionado}"
-						converter="entityConverter">
+						converter="entityConverter" styleClass="custom-select form-control">
 						<f:selectItem itemLabel="Selecione..."></f:selectItem>
 						<f:selectItems var="sel2" value="#{jogosFormBean.opcaoSelecao1}"
 							itemValue="#{sel2}" itemLabel="#{sel2.nome}" />
 					</p:selectOneMenu>
 				</div>
-
-			</fieldset>
-
+			</div>
+			
+			<hr />
+			
+			<p:commandButton action="#{jogosFormBean.salvar}" value="Salvar"
+				styleClass="btn btn-primary btn-sm" update="formulario" />
+			
 			<p:commandButton id="voltar" immediate="true" value="Voltar"
-				styleClass="fr mg-left-15" action="#{jogosListBean.limpaTela}" />
+				styleClass="btn btn-light btn-sm" action="#{jogosListBean.limpaTela}" />
 
 			<p:commandButton id="limpaTela" value="Limpar"
 				action="#{jogosFormBean.limpaTela}" update="formulario"
-				title="Limpar Formulário" styleClass="fr mg-left-15"
+				title="Limpar Formulário" styleClass="btn btn-light btn-sm"
 				immediate="true" />
-
-			<p:commandButton action="#{jogosFormBean.salvar}" value="Salvar"
-				styleClass="fr mg-left-15" update="formulario" />
 
 		</h:form>
 

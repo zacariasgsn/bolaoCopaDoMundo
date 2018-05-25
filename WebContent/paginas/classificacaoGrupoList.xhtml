@@ -9,32 +9,56 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="content">
+		<h1>Classificação Grupo</h1>
+		
+		<h:form id="form">		
+			
+			<p:commandButton id="incluir" value="Nova/Alterar Classificação"
+				action="#{classificacaoGrupoFormBean.prepareIncluir}"
+				styleClass="btn btn-secondary btn-sm"
+				title="Ir para formulario de criação de Jogos" />
 
-		<div class="titulo-pagina">
+			<p:commandButton id="limpaTela" value="Limpar Consulta"
+				style="margin-top:5px;"
+				action="#{classificacaoGrupoListBean.limpaTela}"
+				styleClass="btn btn-light btn-sm" update="form" />
 
-			<h2>Consulta de Classificação Grupo</h2>
-
-		</div>
-		<h:form id="form" styleClass="formularios box-border">
+			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
+				style="margin-top:5px;" action="#{classificacaoGrupoListBean.geraPontuacao}"
+				styleClass="btn btn-copa btn-sm" update="form" />
+					
 
 			<p:messages infoClass="infoMessage" errorClass="errorMessage"
 				showDetail="false" autoUpdate="true" rendered="true" />
 
-			<div class="select-box box-12">
-				<label for="">Grupos</label>
-				<p:selectOneMenu id="grupo"
-					value="#{classificacaoGrupoListBean.grupoSelecionado}"
-					converter="entityConverter">
-					<f:selectItem itemLabel="Selecione..."></f:selectItem>
-					<f:selectItems var="grupo"
-						value="#{classificacaoGrupoListBean.opcaoGrupo}"
-						itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
-				</p:selectOneMenu>
-			</div>
 
-			<p:commandButton id="consultar" value="Consultar"
-				action="#{classificacaoGrupoListBean.consultar}"
-				styleClass="fl mg-top-18" update="lista" />
+			<hr />
+
+			<div class="form-row">
+				<div class="input-group mb-3 col-12">
+					<div class="input-group-prepend">
+    					<label class="input-group-text" for="grupo">Grupos</label>
+  					</div>
+					<p:selectOneMenu id="grupo"
+						value="#{classificacaoGrupoListBean.grupoSelecionado}"
+						converter="entityConverter"  styleClass="custom-select">
+						<f:selectItem itemLabel="Selecione..."></f:selectItem>
+						<f:selectItems var="grupo"
+							value="#{classificacaoGrupoListBean.opcaoGrupo}"
+							itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
+					</p:selectOneMenu>
+					<div class="input-group-append">
+							<p:commandButton	id="consultar"
+												value="Consultar"
+												action="#{classificacaoGrupoListBean.consultar}"
+												update="lista"
+												styleClass="btn btn-secondary btn-sm"
+												/>
+		  			</div>
+				</div>
+			</div>
+			
+			
 
 			<div>
 
@@ -42,7 +66,7 @@
 
 				<p:dataTable id="lista"
 					value="#{classificacaoGrupoListBean.classificacoes}" var="item"
-					emptyMessage="Não há registros" styleClass="tabela-dados"
+					emptyMessage="Não há registros" styleClass="table table-sm table-striped table-hover"
 					editable="true" editMode="cell" cellSeparator=" \/ ">
 
 					<!-- <f:facet name="header">Jogos</f:facet> -->
@@ -91,12 +115,12 @@
 						</h:link>
 					</p:column>
  -->
-					<p:column id="col8">
+					<p:column id="col8" styleClass="text-right">
 						<f:facet name="header">
-                            EXCLUIR
+                            
                         </f:facet>
 						<p:commandLink id="excluir" value="Excluir"
-							styleClass="ico-delete"
+							styleClass="btn btn-sm btn-danger"
 							action="#{classificacaoGrupoListBean.excluir}"
 							onclick="var x = confirm('Deseja realmente excluir o registro?');if(!x){return false;}"
 							update=":form:lista">
@@ -109,19 +133,6 @@
 				</p:dataTable>
 
 			</div>
-
-			<p:commandButton id="limpaTela" value="Limpar"
-				style="margin-top:5px;"
-				action="#{classificacaoGrupoListBean.limpaTela}"
-				styleClass="fr mg-left-15" update="form" />
-
-			<p:commandButton id="incluir" value="Incluir/Alterar" style="margin-top:5px;"
-				action="#{classificacaoGrupoFormBean.prepareIncluir}"
-				styleClass="fr mg-left-15"
-				title="Ir para formulario de criação de Jogos" />
-			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
-				style="margin-top:5px;" action="#{classificacaoGrupoListBean.geraPontuacao}"
-				styleClass="fr mg-left-15" update="form" />
 		</h:form>
 
 	</ui:define>
