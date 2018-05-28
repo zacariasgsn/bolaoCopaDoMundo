@@ -16,10 +16,6 @@
 			<p:commandButton id="incluir" value="Novo Jogo"
 				action="#{jogosFormBean.prepareIncluir}" styleClass="btn btn-secondary btn-sm"
 				title="Ir para formulario de criação de Jogos" />
-			
-			<p:commandButton id="limpaTela" value="Limpar Consulta"
-				 action="#{jogosListBean.limpaTela}"
-				styleClass="btn btn-light btn-sm" update="form" />	
 
 			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
 				action="#{jogosListBean.geraPontuacao}"
@@ -36,7 +32,7 @@
   					</div>
 					<p:selectOneMenu id="grupo"
 						value="#{jogosListBean.grupoSelecionado}"
-						converter="entityConverter" styleClass="custom-select">
+						converter="entityConverter" styleClass="custom-select form-control">
 						<f:selectItem itemLabel="Selecione..."></f:selectItem>
 						<f:selectItems var="grupo" value="#{jogosListBean.opcaoGrupo}"
 							itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
@@ -59,6 +55,9 @@
 											update="lista"
 											styleClass="btn btn-secondary btn-sm"
 											/>
+							<p:commandButton id="limpaTela" value="Limpar"
+				 				action="#{jogosListBean.limpaTela}"
+								styleClass="btn btn-sm" update="form" />	
 	  				</div>
 		  		</div>				
 			</div>

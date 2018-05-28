@@ -17,10 +17,6 @@
 				action="#{selecaoFormBean.prepareIncluir}"
 				styleClass="btn btn-secondary btn-sm"
 				title="Ir para formulario de criação de seção" />
-		
-			<p:commandButton id="limpaTela" value="Limpar Consulta"
-				style="margin-top:5px;" action="#{selecaoListBean.limpaTela}"
-				styleClass="btn btn-light btn-sm" update="form" />
 	
 			<hr/>
 		
@@ -35,7 +31,7 @@
   					</div>
 					<p:selectOneMenu id="grupo"
 						value="#{selecaoListBean.grupoSelecionado}"
-						converter="entityConverter" styleClass="custom-select">
+						converter="entityConverter" styleClass="custom-select form-control-sm">
 						<f:selectItem itemLabel="Selecione..."></f:selectItem>
 						<f:selectItems var="grupo" value="#{selecaoListBean.opcaoGrupo}"
 							itemValue="#{grupo}" itemLabel="#{grupo.nome}" />
@@ -57,6 +53,10 @@
 												update="lista"
 												styleClass="btn btn-secondary btn-sm"
 												/>
+									
+							<p:commandButton id="limpaTela" value="Limpar"
+								action="#{selecaoListBean.limpaTela}"
+								styleClass="btn btn-sm" update="form" />
 		  				</div>
 					</div>
 				</div>				

@@ -44,17 +44,18 @@
 
 			<div class="form-row">
 				<div class="col text-center p-3">
-					<p:button id="voltar" value="Voltar" outcome="login"
-						styleClass="btn btn-sm btn-copa" />
+					<p:button id="voltar" value="Voltar" outcome="login" icon="fas fa-key"
+						styleClass="btn btn-sm btn-secondary float-left" />		
 		
+					<p:commandButton id="limpaTela" immediate="true" value="Limpar" icon="fas fa-key"
+						action="#{participanteFormBean.limpaTelaCadastro}"
+						update="formulario" styleClass="btn btn-sm btn-secondary float-left"
+						ajax="false" />
+						
 					<p:commandButton action="#{participanteFormBean.recuperarSenha}"
 						value="Confirmar" update="formulario"
-						styleClass="btn btn-sm btn-copa" ajax="false" />
-		
-					<p:commandButton id="limpaTela" immediate="true" value="Limpar"
-						action="#{participanteFormBean.limpaTelaCadastro}"
-						update="formulario" styleClass="btn btn-sm btn-copa"
-						ajax="false" />
+						styleClass="btn btn-sm btn-copa float-right" ajax="false" />	
+						
 				</div>
 			</div>
 

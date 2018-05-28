@@ -9,13 +9,13 @@
 	<h:form>
 	<div class="dropdown">
 		<sec:ifAnyGranted roles="ROLE_CONSULTAS">
-			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-user"></i>
 				Olá, #{LoginBean.usuarioLogado.username}! Sua classificação é: #{LoginBean.usuarioLogado.classificacao}
 			</a>
 		</sec:ifAnyGranted>
 		<sec:ifNotGranted roles="ROLE_CONSULTAS">
-			<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<i class="fas fa-user"></i>
 	    		Olá, #{LoginBean.usuarioLogado.username}!
 	  		</a>

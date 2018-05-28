@@ -18,13 +18,8 @@
 				styleClass="btn btn-secondary btn-sm"
 				title="Ir para formulario de criação de Jogos" />
 
-			<p:commandButton id="limpaTela" value="Limpar Consulta"
-				style="margin-top:5px;"
-				action="#{classificacaoGrupoListBean.limpaTela}"
-				styleClass="btn btn-light btn-sm" update="form" />
-
 			<p:commandButton id="geraPontuacao" value="Gerar Pontuação"
-				style="margin-top:5px;" action="#{classificacaoGrupoListBean.geraPontuacao}"
+				action="#{classificacaoGrupoListBean.geraPontuacao}"
 				styleClass="btn btn-copa btn-sm" update="form" />
 					
 
@@ -54,6 +49,9 @@
 												update="lista"
 												styleClass="btn btn-secondary btn-sm"
 												/>
+							<p:commandButton id="limpaTela" value="Limpar"
+								action="#{classificacaoGrupoListBean.limpaTela}"
+								styleClass="btn  btn-sm" update="form" />
 		  			</div>
 				</div>
 			</div>

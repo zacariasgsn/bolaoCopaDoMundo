@@ -14,11 +14,7 @@
 			<p:commandButton id="incluir" value="Novo Participante"
 				action="#{participanteFormBean.prepareIncluir}"
 				styleClass="btn btn-secondary btn-sm" />
-		
-			<p:commandButton id="limpaTela" value="Limpar Consulta"
-				action="#{participanteListBean.limpaTela}" update="form"
-				styleClass="btn btn-light btn-sm" />
-				
+						
 			<hr />
 
 			<p:messages autoUpdate="true" errorClass="errorMessage" />
@@ -48,6 +44,9 @@
 												update="lista"
 												styleClass="btn btn-secondary btn-sm"
 												/>
+								<p:commandButton id="limpaTela" value="Limpar"
+									action="#{participanteListBean.limpaTela}" update="form"
+									styleClass="btn btn-sm" />
 		  				</div>
 				</div>
 
@@ -88,7 +87,7 @@
 					</p:column>
 
 					<p:column headerText="">
-						<p:commandButton id="resetSenha" icon="fas fa-key"
+						<p:commandButton id="resetSenha"
 							styleClass="btn btn-light btn-sm"
 							action="#{participanteListBean.resetarSenha}"
 							value="Alterar Senha"
@@ -99,10 +98,10 @@
 					</p:column>
 
 					<p:column headerText="">
-						<h:commandLink id="editar" value="" icon="fas fa-edit"
+						<h:commandLink id="editar" value=""
 							action="#{participanteFormBean.prepareAlterar}"
 							styleClass="btn btn-secondary btn-sm">
-							<i class="fas fa-edit"></i> Editar
+							Editar
 							<f:setPropertyActionListener
 								target="#{participanteFormBean.participante}" value="#{item}" />
 						</h:commandLink>

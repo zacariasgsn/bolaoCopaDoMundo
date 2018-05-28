@@ -18,9 +18,7 @@
 				styleClass="btn btn-secondary btn-sm"
 				title="Ir para formulario de criação de grupo" />
 			
-			<p:commandButton id="limpaTela" value="Limpar Consulta"
-				action="#{grupoListBean.limpaTela}" update="lista, grupo"
-				styleClass="btn btn-light btn-sm" />
+
 				
 			<hr />		
 				
@@ -39,7 +37,10 @@
 												action="#{grupoListBean.consultar}"
 												update="lista"
 												styleClass="btn btn-secondary btn-sm"
-												placeholder="asads" />
+												 />
+							<p:commandButton id="limpaTela" value="Limpar"
+								action="#{grupoListBean.limpaTela}" update="lista, grupo"
+								styleClass="btn btn-sm" />
 		  				</div>
 					
 				</div>

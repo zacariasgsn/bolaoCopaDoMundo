@@ -12,6 +12,26 @@
 		<h1>Classificação Geral</h1>
 
 		<h:form id="form" styleClass="">
+		
+			<sec:ifAnyGranted roles="ROLE_ADMIN">
+				<div class="btn-group" role="group" aria-label="Basic example">
+								
+						 <p:commandButton id="relatorio"
+											 value="Relatorio"
+											 actionListener="#{classificacaoGeralBean.relatorio}" 
+											  styleClass="btn btn-secondary btn-sm"
+											 ajax="false"
+											 />
+						 <p:commandButton id="enviarEmail"
+											 value="email"
+											 actionListener="#{classificacaoGeralBean.enviarEmailParticipantes}" 
+											  styleClass="btn btn-secondary btn-sm"
+											 ajax="false"
+											 />
+					
+				</div>
+				<hr />
+			</sec:ifAnyGranted>
 
 			<p:messages infoClass="infoMessage" errorClass="errorMessage"
 				showDetail="true" autoUpdate="false"
@@ -63,21 +83,6 @@
 				</p:dataTable>
 
 			</div>
-			<sec:ifAnyGranted roles="ROLE_ADMIN">
-			
-					 <p:commandButton id="relatorio"
-										 value="Relatorio"
-										 actionListener="#{classificacaoGeralBean.relatorio}" 
-										  styleClass="mg-left-15 mg-top-15 fr"
-										 ajax="false"
-										 />
-					 <p:commandButton id="enviarEmail"
-										 value="email"
-										 actionListener="#{classificacaoGeralBean.enviarEmailParticipantes}" 
-										  styleClass="mg-left-15 mg-top-15 fr"
-										 ajax="false"
-										 />
-			</sec:ifAnyGranted>
 			
 		</h:form>
 

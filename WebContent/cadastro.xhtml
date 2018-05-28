@@ -116,16 +116,18 @@
 			<hr />
 
 			<p:button id="voltar" value="Voltar" outcome="login"
-				styleClass="btn btn-sm btn-copa" />
-
-			<p:commandButton action="#{participanteFormBean.salvarCadastro}"
-				id="salvar" value="Salvar" update="formulario, :form2"
-				styleClass="btn btn-sm btn-copa" />
+				styleClass="btn btn-sm btn-secondary float-left" />
 
 			<p:commandButton id="limpaTela" immediate="true" value="Limpar"
 				action="#{participanteFormBean.limpaTelaCadastro}"
-				update="formulario" styleClass="btn btn-sm btn-copa"
+				update="formulario" styleClass="btn btn-sm btn-secondary float-left"
 				ajax="false" />
+
+			<p:commandButton action="#{participanteFormBean.salvarCadastro}"
+				id="salvar" value="Salvar" update="formulario, :form2"
+				styleClass="btn btn-sm btn-copa float-right" />
+
+
 
 		</h:form>
 
