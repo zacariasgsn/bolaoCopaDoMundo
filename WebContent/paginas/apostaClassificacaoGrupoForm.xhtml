@@ -28,6 +28,28 @@
 		</f:metadata>
 
 		<h:form styleClass="formularios" id="formulario">
+			<div class="form-row">
+					<div class="input-group mb-3 col-12">
+						<div class="input-group-prepend">
+	     					<label class="input-group-text" for="grupo">Grupos</label>
+	  					</div>
+						<p:selectOneMenu id="grupo_select"
+							value="#{apostaClassificacaoGrupoFormBean.grupoSelecionado}"
+							converter="entityConverter" required="false"
+							styleClass="custom-select">
+							<f:selectItem id="selecioneGrupo" itemLabel="Selecione..."
+								style="width: 299px;" />
+							<f:selectItems value="#{classificacaoGrupoListBean.opcaoGrupo}"
+								var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
+							<p:ajax listener="#{apostaClassificacaoGrupoFormBean.consultarGrupo}"
+								update="pojoPickList,salvar " event="change" />
+						</p:selectOneMenu>
+
+				  	</div>
+			</div>
+		
+		
+		
 
 			<p:growl id="msg" showDetail="false" escape="false" />
 			<fieldset>
@@ -44,67 +66,57 @@
 			</div> -->
 				</h:panelGroup>
 
-				<div class="select-box box-30">
-					<h:outputText value="Grupos* " />
-
-					<div class="conteiner ">
-						<p:selectOneMenu id="grupo_select"
-							value="#{apostaClassificacaoGrupoFormBean.grupoSelecionado}"
-							converter="entityConverter" required="false"
-							styleClass="mg-bottom-10 box-100" style="width: 300px;">
-							<f:selectItem id="selecioneGrupo" itemLabel="Selecione..."
-								style="width: 299px;" />
-							<f:selectItems value="#{classificacaoGrupoListBean.opcaoGrupo}"
-								var="grupo" itemLabel="#{grupo.nome}" itemValue="#{grupo}" />
-							<p:ajax listener="#{apostaClassificacaoGrupoFormBean.consultarGrupo}"
-								update="pojoPickList,salvar " event="change" />
-						</p:selectOneMenu>
-					</div>
-				</div>
-
 				<p:pickList id="pojoPickList"
 					value="#{apostaClassificacaoGrupoFormBean.selecoes}" var="selecao"
 					itemValue="#{selecao}" itemLabel="#{selecao.nome}"
 					converter="primeFacesPickListConverter" showSourceControls="false"
 					showTargetControls="false" showCheckbox="true"
 					showSourceFilter="true" showTargetFilter="true"
-					filterMatchMode="contains">
+					filterMatchMode="contains"
+					styleClass="tabela-aposta-grupo">
 
-					<f:facet name="sourceCaption">Seleções</f:facet>
+					<f:facet name="sourceCaption" styleClass="border">Seleções</f:facet>
 					<f:facet name="targetCaption">Classificação</f:facet>
 
 					<p:ajax event="transfer"
 						listener="#{apostaClassificacaoGrupoFormBean.onTransfer}"
 						update="msg,salvar" />
 
-					<p:column style="width:25%">
+					<p:column style="width:25%" >
 						<p:graphicImage value="../img/#{selecao.id}.png" width="30"
-							height="40" />
+							height="30" />
 					</p:column>
 
 					<p:column style="width:75%;">#{selecao.nome}</p:column>
 
 				</p:pickList>
+				
+				<div>
+
+				
+				</div>
 
 			</fieldset>
 
+			<hr />
 			<p:commandButton id="voltar" immediate="true" value="Voltar"
-				styleClass="fr mg-left-15 mg-bottom-15"
+				styleClass="btn btn-sm"
 				action="#{apostaClassificacaoGrupoFormBean.voltar}" />
 			<p:commandButton id="limpaTela" value="Limpar"
 				action="#{apostaClassificacaoGrupoFormBean.limpaTela}" update="formulario"
 				title="Limpar Formulário"
-				styleClass="fr mg-left-15 mg-bottom-15" immediate="true" />
-			<p:commandButton id="salvar"
-				action="#{apostaClassificacaoGrupoFormBean.salvar}" value="Salvar"
-				styleClass="fr mg-left-15 mg-bottom-15" update="formulario"
-				disabled="#{!apostaClassificacaoGrupoFormBean.permiteSalvar}" />
+				styleClass="btn btn-sm" immediate="true" />
 			<p:commandButton id="relatorio"
 				 value="Vizualizar Palpites"
 				 actionListener="#{apostaClassificacaoGrupoFormBean.relatorio}" 
-				 styleClass="mg-left-18  mg-top-15"
+				 styleClass="btn btn-sm btn-secondary"
 				 ajax="false"
 									 />
+			<p:commandButton id="salvar"
+				action="#{apostaClassificacaoGrupoFormBean.salvar}" value="Salvar"
+				styleClass="btn btn-sm btn-copa" update="formulario"
+				disabled="#{!apostaClassificacaoGrupoFormBean.permiteSalvar}" />
+			
 		</h:form>
 
 	</ui:define>

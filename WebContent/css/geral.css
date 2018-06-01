@@ -18,7 +18,6 @@ footer { text-align: center; padding: 10px 0; }
 .login-corpo { background: #fff; padding: 20px; }
 
 
-
 /* BOOTSTRAP */
 .btn {font-weight:bold; text-transform:uppercase; }
 .navbar { padding-left:0; }
@@ -52,4 +51,5 @@ footer { text-align: center; padding: 10px 0; }
 .ui-state-hover, .ui-state-focus { background: #fff; }
 .ui-helper-hidden-accessible { position: relative !important; }
 .ui-selectonemenu input{ display:none;  }
+.ui-state-highlight { background: #f8d7da !important; }
 

@@ -12,6 +12,15 @@
 		<h1>Minhas Apostas</h1>
 
 		<h:form id="form">
+		
+				<p:commandButton id="pesquisar" value="Mostrar Pendências" style="margin-top:5px;"
+				action="#{apostasBean.apostasIncompletas}" update="lista"
+				styleClass="btn btn-sm btn-secondary" />
+				
+				<p:commandButton id="incluir" value="Classificação Grupo" style="margin-top:5px;"
+				action="#{apostaClassificacaoGrupoFormBean.prepareIncluir}"
+				styleClass="btn btn-sm btn-secondary"
+				title="Ir para formulario de classificação grupo" />
 
 			<p:focus context="lista" />
 
@@ -35,15 +44,15 @@
 <!-- 					<p:ajax event="cellEdit" listener="#{apostasBean.onCellEdit}" -->
 <!-- 						update=":form:messages" /> -->
 
-					<p:column id="col1" headerText="ID" styleClass="text-left">
-						<h:outputText value="#{item.jogos.id}" />
+					<p:column id="col1" headerText="ID" styleClass="text-center align-middle">
+						<h:outputText value="#{item.jogos.id}" styleClass="text-center"/>
 					</p:column>
 
-					<p:column id="col2" headerText="Grupo" styleClass="center">
+					<p:column id="col2" headerText="Grupo" styleClass="text- left align-middle">
 						<h:outputText value="#{item.jogos.grupo.nome}" />
 					</p:column>
 
-					<p:column id="col3" headerText="Data do Jogo" styleClass="text-left">
+					<p:column id="col3" headerText="Data do Jogo" styleClass="text-left align-middle">
 						<h:outputText id="item4" value="#{item.jogos.dtJogo}">
 							<f:convertDateTime id="convIni" type="date" pattern="dd/MM/yyyy" />
 						</h:outputText>
@@ -53,17 +62,17 @@
 					<!-- 						<h:outputText value="#{item.jogos.selecao1.nome}" /> -->
 					<!-- 						<h:graphicImage value="../img/#{item.jogos.selecao1.id}.png" /> -->
 					<!-- 					</p:column> -->
-					<p:column id="col4" headerText="Seleção" styleClass="text-right" >
+					<p:column id="col4" headerText="Seleção" styleClass="text-right align-middle" >
 						<h:outputText value="#{item.jogos.selecao1.nome}" styleClass="text-right" />
 					</p:column>
 
-					<p:column id="colB1" styleClass="cel-3 center">
+					<p:column id="colB1" styleClass="align-middle" style="width: 48px">
 						<h:graphicImage value="../img/#{item.jogos.selecao1.id}.png" />
 					</p:column>
 					
 <!-- 					#{apostasBean.flagApostasIncompletas==true and item.gol1t.isEmpty()? 'border-width: 4px; border-color: red' : ''} -->
 					
-					<p:column headerText="" styleClass="center" style="#{apostasBean.flagApostasIncompletas==true and item.gol1t.isEmpty()? 'background-color: yellow' : ''}">
+					<p:column headerText="" styleClass="text-center" style="#{apostasBean.flagApostasIncompletas==true and item.gol1t.isEmpty()? 'background-color: yellow' : ''}; width: 50px">
 						<p:inputMask id="gol1" value="#{item.gol1t}"
 							mask="?99"
 							placeHolder=""
@@ -83,11 +92,11 @@
 <!-- 						</p:cellEditor> -->
 					</p:column>
 
-					<p:column id="col5" headerText="Vs" styleClass="center">
-						<h:outputText value=" X " />
+					<p:column id="col5" headerText="Vs" styleClass="text-center align-middle">
+						<h:outputText value=" X "/>
 					</p:column>
 
-					<p:column headerText="" styleClass="center" style="#{apostasBean.flagApostasIncompletas==true and item.gol2t.isEmpty()? 'background-color: yellow' : ''}">
+					<p:column headerText="" styleClass="align-middle" style="#{apostasBean.flagApostasIncompletas==true and item.gol2t.isEmpty()? 'background-color: yellow' : ''} width: 50px">
 						<p:inputMask id="gol2" value="#{item.gol2t}" mask="?99"
 							placeHolder=""
 							readonly="#{apostasBean.podeAlterar}"
@@ -110,10 +119,10 @@
 					<!-- 						<h:graphicImage value="../img/#{item.jogos.selecao2.id}.png" /> -->
 					<!-- 						<h:outputText value="#{item.jogos.selecao2.nome}" /> -->
 					<!-- 					</p:column> -->
-					<p:column id="colB2" styleClass="cel-3 center">
+					<p:column id="colB2" styleClass="align-middle" style="width: 48px">
 						<h:graphicImage value="../img/#{item.jogos.selecao2.id}.png" />
 					</p:column>
-					<p:column id="col6" styleClass="text-left" headerText="Seleção">
+					<p:column id="col6" styleClass="text-left align-middle" headerText="Seleção">
 						<h:outputText value="#{item.jogos.selecao2.nome}" styleClass="text-left" />
 					</p:column>
 
@@ -121,14 +130,7 @@
 
 			</div>
 			
-			<p:commandButton id="pesquisar" value="Mostrar Pendências" style="margin-top:5px;"
-				action="#{apostasBean.apostasIncompletas}" update="lista"
-				styleClass="fr mg-left-15" />
-				
-				<p:commandButton id="incluir" value="Classificação Grupo" style="margin-top:5px;"
-				action="#{apostaClassificacaoGrupoFormBean.prepareIncluir}"
-				styleClass="fr mg-left-15"
-				title="Ir para formulario de classificação grupo" />
+
 			
 		</h:form>
 
